@@ -1,0 +1,16 @@
+{
+  "name": "game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "init.js",
+  "scripts": {
+    "serve": "npm run serve",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lienusowl",
+  "license": "ISC",
+  "dependencies": {
+    "connect": "^3.7.0",
+    "serve-static": "^1.15.0"
+  }
+}
