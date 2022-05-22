@@ -45,7 +45,7 @@ class Overworld {
     bindActionInput () {
         new KeyPressListener('Enter', () => {
             // чекаем если ли с кем потрещать с помощью диалогового окна
-            this.map.checkForActionCutScene();
+            this.map.checkForActionCutscene();
         })
     }
 
@@ -53,7 +53,7 @@ class Overworld {
         document.addEventListener('PersonWalkingComplete', e => {
             if (e.detail.whoId === 'hero') {
                 // позиция героя изменилась
-                this.map.checkForActionCutScene();
+                this.map.checkForFootstepCutscene()
             }
         })
     }

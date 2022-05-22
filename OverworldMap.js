@@ -66,7 +66,7 @@ class OverworldMap {
         Object.values(this.gameObjects).forEach(object => object.doBehaviorEvent(this));
     }
 
-    checkForActionCutScene () {
+    checkForActionCutscene () {
         const hero = this.gameObjects['hero'];
         const nextCoords = utils.nextPosition(hero.x, hero.y, hero.direction);
         const match = Object.values(this.gameObjects).find(object => {
@@ -118,83 +118,83 @@ window.OverworldMaps = {
                 y: utils.withGrid(9),
                 src: "/images/characters/people/npc1.png",
                 behaviorLoop: [
-                    { type: "stand",  direction: "left", time: 800 },
-                    { type: "stand",  direction: "up", time: 800 },
-                    { type: "stand",  direction: "right", time: 1200 },
-                    { type: "stand",  direction: "up", time: 300 },
+                    { type: 'stand', direction: 'left', time: 800, },
+                    { type: 'walk', direction: 'left', },
+                    { type: 'stand', direction: 'up', time: 1200, },
+                    { type: 'stand', direction: 'right', time: 800, },
+                    { type: 'walk', direction: 'right', },
+                    { type: 'stand', direction: 'down', time: 300, },
+
                 ],
                 talking: [
                     {
                         events: [
-                            { type: "textMessage", text: "I'm busy...", faceHero: "npcA" },
-                            { type: "textMessage", text: "Go away!"},
-                            { who: "hero", type: "walk",  direction: "up" },
-                        ]
-                    }
+                            { type: 'textMessage', text: 'Привет, я Алексей из отдела ИТ', faceHero: 'npcA' },
+                            { type: 'textMessage', text: 'пишет - connection refused' },
+                            { type: 'textMessage', text: 'сукабля' },
+                            { type: 'textMessage', text: 'ебаные миграции' },
+                        ],
+                    },
                 ]
             }),
             npcB: new Person({
-                x: utils.withGrid(8),
+                x: utils.withGrid(7),
                 y: utils.withGrid(5),
                 src: "/images/characters/people/npc2.png",
-                // behaviorLoop: [
-                //   { type: "walk",  direction: "left" },
-                //   { type: "stand",  direction: "up", time: 800 },
-                //   { type: "walk",  direction: "up" },
-                //   { type: "walk",  direction: "right" },
-                //   { type: "walk",  direction: "down" },
-                // ]
-            }),
+                talking: [
+                    {
+                        events: [
+                            { type: 'textMessage', text: 'Привет, съеби пожалуйста', faceHero: 'npcA' },
+                            { type: 'textMessage', text: 'мне надо уединиться в этой комнате' },
+                            { who: "npcB", type: 'walk', direction: 'right', },
+                            { who: "npcB", type: 'walk', direction: 'right', },
+                        ],
+                    },
+                ]
+            })
+        },
+        cutsceneSpaces: {
+            [utils.asGridCoord(7,3)]: [
+                {
+                    events: [
+                        { who: "npcB", type: "walk",  direction: "left" },
+                        { who: "npcB", type: "walk",  direction: "left" },
+                        { who: "npcB", type: "stand",  direction: "up", time: 500 },
+                        { type: "textMessage", text:"Всё!"},
+                        { type: "textMessage", text:"выходи давай!"},
+                        { type: "textMessage", text:"хватит делать эти грязные делишки!"},
+                        { who: "npcB", type: "walk",  direction: "right" },
+                        { who: "hero", type: "walk",  direction: "down" },
+                        { who: "hero", type: "walk",  direction: "down" },
+                        { who: "hero", type: "walk",  direction: "left" },
+                    ]
+                }
+            ],
         },
         walls: {
             [utils.asGridCoord(7,6)] : true,
             [utils.asGridCoord(8,6)] : true,
             [utils.asGridCoord(7,7)] : true,
             [utils.asGridCoord(8,7)] : true,
-        },
-        cutsceneSpaces: {
-            [utils.asGridCoord(7,4)]: [
-                {
-                    events: [
-                        { who: "npcB", type: "walk",  direction: "left" },
-                        { who: "npcB", type: "stand",  direction: "up", time: 500 },
-                        { type: "textMessage", text:"You can't be in there!"},
-                        { who: "npcB", type: "walk",  direction: "right" },
-                        { who: "hero", type: "walk",  direction: "down" },
-                        { who: "hero", type: "walk",  direction: "left" },
-                    ]
-                }
-            ],
-            [utils.asGridCoord(5,10)]: [
-                {
-                    events: [
-                        { type: "changeMap", map: "Kitchen" }
-                    ]
-                }
-            ],
         }
-
     },
     Kitchen: {
         lowerSrc: "/images/maps/KitchenLower.png",
         upperSrc: "/images/maps/KitchenUpper.png",
         gameObjects: {
-            hero: new Person({
-                isPlayerControlled: true,
-                x: utils.withGrid(5),
-                y: utils.withGrid(5),
+            hero: new GameObject({
+                x: 3,
+                y: 5,
             }),
-            npcB: new Person({
-                x: utils.withGrid(10),
-                y: utils.withGrid(8),
-                src: "/images/characters/people/npc3.png",
-                talking: [
-                    {
-                        events: [
-                            { type: "textMessage", text: "You made it!", faceHero:"npcB" },
-                        ]
-                    }
-                ]
+            npcA: new GameObject({
+                x: 9,
+                y: 6,
+                src: "/images/characters/people/npc2.png"
+            }),
+            npcB: new GameObject({
+                x: 10,
+                y: 8,
+                src: "/images/characters/people/npc3.png"
             })
         }
     },
