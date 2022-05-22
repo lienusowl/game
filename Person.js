@@ -17,8 +17,6 @@ class Person extends GameObject{
         if (this.movingProgressRemaining > 0) {
             this.updatePosition();
         } else {
-
-
             // тык по клаве
             if (this.isPlayerControlled && state.arrow) {
                 this.startBehavior(state, {
@@ -46,9 +44,16 @@ class Person extends GameObject{
     }
 
     updatePosition () {
-            const [property, change] = this.directionUpdate[this.direction];
-            this[property] += change;
-            this.movingProgressRemaining -= 1;
+        const [property, change] = this.directionUpdate[this.direction];
+        this[property] += change;
+        this.movingProgressRemaining -= 1;
+
+        if (this.movingProgressRemaining === 0) {
+            // закончили ходить
+            utils.emitEvent('PersonWalkingComplete', {
+                whoId: this.id,
+            })
+        }
     }
 
     updateSprite (state) {
