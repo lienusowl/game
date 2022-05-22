@@ -62,6 +62,19 @@ class OverworldMap {
         // после сценок хочу чтоб персонажи уже делали, что им надо по жизни
 
         Object.values(this.gameObjects).forEach(object => object.doBehaviorEvent(this));
+
+
+    }
+
+    checkForActionCutScene () {
+        const hero = this.gameObjects['hero'];
+        const nextCoords = utils.nextPosition(hero.x, hero.y, hero.direction);
+        const match = Object.values(this.gameObjects).find(object => {
+            return `${object.x},${object.y}` === `${nextCoords.x},${nextCoords.y}`
+        })
+        if (!this.isCutscenePlaying && match && match.talking.length) {
+            this.startCutscene(match.talking[0].events);
+        }
     }
 
     addWall (x,y) {
@@ -101,6 +114,16 @@ window.OverworldMaps = {
                     { type: 'stand', direction: 'right', time: 800, },
                     { type: 'stand', direction: 'down', time: 300, },
 
+                ],
+                talking: [
+                    {
+                        events: [
+                            { type: 'textMessage', text: 'Привет, я Алексей из отдела ИТ', faceHero: 'npcA' },
+                            { type: 'textMessage', text: 'пишет - connection refused' },
+                            { type: 'textMessage', text: 'сукабля' },
+                            { type: 'textMessage', text: 'ебаные миграции' },
+                        ],
+                    },
                 ]
             }),
             npcB: new Person({
