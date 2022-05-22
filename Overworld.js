@@ -53,6 +53,33 @@ class Overworld {
 
         this.startGameLoop();
 
+        this.map.startCutscene([
+            { type: 'textMessage', text: 'какая чудесная игрулька получается)))'},
+            { who: 'npcB', type: 'walk', direction: 'up' },
+            { who: 'npcB', type: 'walk', direction: 'up' },
+            { who: 'npcB', type: 'walk', direction: 'right' },
+            { who: 'npcB', type: 'walk', direction: 'right' },
+            { who: 'npcB', type: 'walk', direction: 'right' },
+            { who: 'npcB', type: 'walk', direction: 'right' },
+            { who: 'npcB', type: 'walk', direction: 'up' },
+            { who: 'npcB', type: 'walk', direction: 'up' },
+            { who: 'npcB', type: 'walk', direction: 'up' },
+            { who: 'npcB', type: 'walk', direction: 'down' },
+            { who: 'npcB', type: 'walk', direction: 'down' },
+            { who: 'npcB', type: 'walk', direction: 'down' },
+            { who: 'npcB', type: 'walk', direction: 'left' },
+            { who: 'npcB', type: 'walk', direction: 'left' },
+            { who: 'npcB', type: 'walk', direction: 'left' },
+            { who: 'npcB', type: 'walk', direction: 'left' },
+            { who: 'npcB', type: 'walk', direction: 'down' },
+
+            { who: 'hero', type: 'walk', direction: 'down' },
+            { who: 'hero', type: 'walk', direction: 'down' },
+            { who: 'npcA', type: 'walk', direction: 'left' },
+            { who: 'npcA', type: 'walk', direction: 'left' },
+            { who: 'npcA', type: 'stand', direction: 'up', time: 800 },
+        ]);
+
 
     }
 }

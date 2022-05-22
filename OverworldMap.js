@@ -45,6 +45,25 @@ class OverworldMap {
         });
     }
 
+    async startCutscene (events) {
+        this.isCutscenePlaying = true;
+
+        // цикл событий синхронизации каждого из них
+        for (let i = 0; i < events.length; i++) {
+            const eventHandler = new OverworldEvent({
+                map: this,
+                event: events[i],
+            });
+            await eventHandler.init();
+        }
+
+        this.isCutscenePlaying = false;
+
+        // после сценок хочу чтоб персонажи уже делали, что им надо по жизни
+
+        Object.values(this.gameObjects).forEach(object => object.doBehaviorEvent(this));
+    }
+
     addWall (x,y) {
         this.walls[`${x},${y}`] = true;
     }
@@ -58,6 +77,8 @@ class OverworldMap {
         const {x,y} = utils.nextPosition(wasX, wasY, direction);
         this.addWall(x,y);
     }
+
+
 }
 
 window.OverworldMaps = {
@@ -88,7 +109,7 @@ window.OverworldMaps = {
                 src: "/images/characters/people/npc2.png",
                 behaviorLoop: [
                     { type: 'walk', direction: 'left', },
-                    // { type: 'stand', direction: 'up', time: 800, },
+                    { type: 'stand', direction: 'up', time: 800, },
                     { type: 'walk', direction: 'up', },
                     { type: 'walk', direction: 'right', },
                     { type: 'walk', direction: 'down', },
