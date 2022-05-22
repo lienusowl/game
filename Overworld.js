@@ -26,7 +26,9 @@ class Overworld {
             this.map.drawLowerImage(this.ctx, cameraPerson);
 
             // рисуем все игровые объекты между нижним и верхним слоем
-            Object.values(this.map.gameObjects).forEach(object => {
+            Object.values(this.map.gameObjects).sort((a, b) => {
+                return a.y - b.y; // хитрая сортировочка, чтобы более нижние объекты перекрывали те что выше если стоят рядом
+            }).forEach(object => {
                 object.sprite.draw(this.ctx, cameraPerson);
             });
 

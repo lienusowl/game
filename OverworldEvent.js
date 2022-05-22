@@ -5,7 +5,22 @@ class OverworldEvent {
     }
 
     stand (resolve) {
+        const who = this.map.gameObjects[this.event.who];
+        who.startBehavior({
+            map: this.map
+        }, {
+            type: "stand",
+            direction: this.event.direction,
+            time: this.event.time,
+        })
 
+        // const completeHandler = e => {
+        //     if (e.detail.whoId === this.event.who) {
+        //         document.removeEventListener("PersonWalkingComplete", completeHandler);
+        //         resolve();
+        //     }
+        // }
+        // document.addEventListener("PersonWalkingComplete", completeHandler)
     }
 
     walk (resolve) {
@@ -15,7 +30,7 @@ class OverworldEvent {
         }, {
             type: "walk",
             direction: this.event.direction,
-            retry: true
+            retry: true,
         })
 
         const completeHandler = e => {

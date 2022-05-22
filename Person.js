@@ -34,13 +34,26 @@ class Person extends GameObject{
         // остановимся если нельзя пройти
         if (behavior.type === 'walk') {
             if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
+
+                behavior.retry && setTimeout(() => {
+                    this.startBehavior(state, behavior);
+                }, 10);
+
                 return;
             }
             // можно идти
             state.map.moveWall(this.x, this.y, this.direction);
             this.movingProgressRemaining = 16;
+            this.updateSprite(state);
         }
 
+        if (behavior.type === 'stand') {
+            setTimeout(() => {
+                utils.emitEvent('PersonStandComplete', {
+                    whoId:this.id,
+                });
+            }, behavior.time);
+        }
     }
 
     updatePosition () {
