@@ -6,7 +6,7 @@ class TextMessage {
     }
 
     createElement () {
-        // создадим элемент
+        // Создадим элемент
         this.element = document.createElement('div');
         this.element.classList.add('text-message');
 
@@ -15,7 +15,7 @@ class TextMessage {
             <button class='text-message__button'>Далее</button>
         `);
 
-        // собираемся включить эффект набора текста
+        // Собираемся включить эффект набора текста
         this.revealingText = new RevealingText({
             element: this.element.querySelector(".text-message__text"),
             text: this.text

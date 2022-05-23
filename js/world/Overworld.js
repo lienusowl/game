@@ -8,10 +8,10 @@ class Overworld {
 
     startGameLoop () {
         const step = () => {
-            // чистим канвас в следующий кадр
+            // Чистим канвас в следующий кадр
             this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-            // тут будет персонаж которому мы передадим камеру слежения
+            // Тут будет персонаж которому мы передадим камеру слежения
             const cameraPerson = this.map.gameObjects.hero;
 
             // обновить все объекты
@@ -22,12 +22,12 @@ class Overworld {
                 });
             })
 
-            // рисуем нижний слой
+            // Рисуем нижний слой
             this.map.drawLowerImage(this.ctx, cameraPerson);
 
-            // рисуем все игровые объекты между нижним и верхним слоем
+            // Рисуем все игровые объекты между нижним и верхним слоем
             Object.values(this.map.gameObjects).sort((a, b) => {
-                return a.y - b.y; // хитрая сортировочка, чтобы более нижние объекты перекрывали те что выше если стоят рядом
+                return a.y - b.y; // Хитрая сортировочка, чтобы более нижние объекты перекрывали те что выше если стоят рядом
             }).forEach(object => {
                 object.sprite.draw(this.ctx, cameraPerson);
             });
@@ -44,7 +44,7 @@ class Overworld {
 
     bindActionInput () {
         new KeyPressListener('Enter', () => {
-            // чекаем если ли с кем потрещать с помощью диалогового окна
+            // Чекаем если ли с кем потрещать с помощью диалогового окна
             this.map.checkForActionCutscene();
         })
     }

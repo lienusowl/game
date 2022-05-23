@@ -50,7 +50,7 @@ class OverworldMap {
     async startCutscene (events) {
         this.isCutscenePlaying = true;
 
-        // цикл событий синхронизации каждого из них
+        // Цикл событий синхронизации каждого из них
         for (let i = 0; i < events.length; i++) {
             const eventHandler = new OverworldEvent({
                 map: this,
@@ -61,7 +61,7 @@ class OverworldMap {
 
         this.isCutscenePlaying = false;
 
-        // после сценок хочу чтоб персонажи уже делали, что им надо по жизни
+        // После сценок хочу чтоб персонажи уже делали, что им надо по жизни
 
         Object.values(this.gameObjects).forEach(object => object.doBehaviorEvent(this));
     }

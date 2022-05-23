@@ -51,7 +51,7 @@ class GameObject {
             this.behaviorLoopIndex = 0;
         }
 
-        // запускаем по новой
+        // Запускаем по новой
         await this.doBehaviorEvent(map);
     }
 

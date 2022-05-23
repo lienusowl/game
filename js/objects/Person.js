@@ -29,11 +29,11 @@ class Person extends GameObject {
     }
 
     startBehavior(state, behavior) {
-        // задаем направление персонажа для любого свободного пути
+        // Задаем направление персонажа для любого свободного пути
         this.direction = behavior.direction;
 
         if (behavior.type === "walk") {
-            // остановимся если нельзя пройти
+            // Остановимся если нельзя пройти
             if (state.map.isSpaceTaken(this.x, this.y, this.direction)) {
 
                 behavior.retry && setTimeout(() => {
@@ -43,7 +43,7 @@ class Person extends GameObject {
                 return;
             }
 
-            // можно идти
+            // Можно идти
             state.map.moveWall(this.x, this.y, this.direction);
             this.movingProgressRemaining = 16;
             this.updateSprite(state);
@@ -67,7 +67,7 @@ class Person extends GameObject {
         this.movingProgressRemaining -= 1;
 
         if (this.movingProgressRemaining === 0) {
-            //закончили ходить
+            // Закончили ходить
             utils.emitEvent("PersonWalkingComplete", {
                 whoId: this.id
             })

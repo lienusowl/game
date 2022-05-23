@@ -1,14 +1,14 @@
 class Sprite {
     constructor (config) {
 
-        // установка изображения объекта
+        // Установка изображения объекта
         this.image = new Image();
         this.image.src = config.src;
         this.image.onload = () => {
             this.isLoaded = true;
         }
 
-        // тут будем рисовать тень под персонажем
+        // Тут будем рисовать тень под персонажем
         this.shadow = new Image();
         this.useShadow = true;
 
@@ -16,11 +16,11 @@ class Sprite {
             this.shadow.src = '/images/characters/shadow.png';
         }
         this.shadow.onload = () => {
-            this.isShadowLoaded = true; // можно будет отключить если тень не нужна
+            this.isShadowLoaded = true; // Можно будет отключить если тень не нужна
         }
 
 
-        // настройка анимаций и начального состояния
+        // Настройка анимаций и начального состояния
         this.animations = config.animations || {
             'idle-down': [
                 [0, 0], // бездействие
@@ -59,13 +59,13 @@ class Sprite {
                 [0, 3]
             ],
         }
-        this.currentAnimation = 'idle-right';//config.currentAnimation || 'idle-down';
+        this.currentAnimation = 'idle-right';
         this.currentAnimationFrame = 0;
 
         this.animationFrameLimit = config.animationFrameLimit || 8;
         this.animationFrameProgress = this.animationFrameLimit;
 
-        // ссылаемся на игровой объект
+        // Ссылаемся на игровой объект
         this.gameObject = config.gameObject;
     }
 
