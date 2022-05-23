@@ -104,6 +104,26 @@ class OverworldMap {
 }
 
 window.OverworldMaps = {
+    PC: {
+        lowerSrc: "/images/maps/PC/pc.png",
+        upperSrc: "/images/maps/KitchenUpper.png",
+        gameObjects: {
+            hero: new Person({
+                isPlayerControlled: true,
+                x: utils.withGrid(37),
+                y: utils.withGrid(55),
+            }),
+        },
+        cutsceneSpaces: {
+            [utils.asGridCoord(21,13)]: [
+                {
+                    events: [
+                        { type: "changeMap", map: "Street" }
+                    ]
+                }
+            ]
+        },
+    },
     DemoRoom: {
         lowerSrc: "/images/maps/DemoLower.png",
         upperSrc: "/images/maps/DemoUpper.png",
@@ -111,7 +131,7 @@ window.OverworldMaps = {
             hero: new Person({
                 isPlayerControlled: true,
                 x: utils.withGrid(5),
-                y: utils.withGrid(6),
+                y: utils.withGrid(10),
             }),
             npcA: new Person({
                 x: utils.withGrid(7),
@@ -138,8 +158,8 @@ window.OverworldMaps = {
                 ]
             }),
             npcB: new Person({
-                x: utils.withGrid(7),
-                y: utils.withGrid(5),
+                x: utils.withGrid(3),
+                y: utils.withGrid(7),
                 src: "/images/characters/people/npc2.png",
                 talking: [
                     {
@@ -170,6 +190,13 @@ window.OverworldMaps = {
                     ]
                 }
             ],
+            [utils.asGridCoord(5,10)]: [
+                {
+                    events: [
+                        { type: "changeMap", map: "PC" }
+                    ]
+                }
+            ]
         },
         walls: {
             [utils.asGridCoord(7,6)] : true,
@@ -182,20 +209,59 @@ window.OverworldMaps = {
         lowerSrc: "/images/maps/KitchenLower.png",
         upperSrc: "/images/maps/KitchenUpper.png",
         gameObjects: {
-            hero: new GameObject({
-                x: 3,
-                y: 5,
+            hero: new Person({
+                isPlayerControlled: true,
+                x: utils.withGrid(5),
+                y: utils.withGrid(5),
             }),
-            npcA: new GameObject({
-                x: 9,
-                y: 6,
-                src: "/images/characters/people/npc2.png"
-            }),
-            npcB: new GameObject({
-                x: 10,
-                y: 8,
-                src: "/images/characters/people/npc3.png"
+            npcB: new Person({
+                x: utils.withGrid(10),
+                y: utils.withGrid(8),
+                src: "/images/characters/people/npc3.png",
+                talking: [
+                    {
+                        events: [
+                            { type: "textMessage", text: "You made it! This video is going to be such a good time!", faceHero:"npcB" },
+                        ]
+                    }
+                ]
             })
-        }
+        },
+        cutsceneSpaces: {
+            [utils.asGridCoord(5,10)]: [
+                {
+                    events: [
+                        { type: "changeMap", map: "DemoRoom" }
+                    ]
+                }
+            ]
+        },
+    },
+    Street: {
+        lowerSrc: "/images/maps/mapTest.png",
+        upperSrc: "/images/maps/KitchenUpper.png",
+        gameObjects: {
+            hero: new Person({
+                isPlayerControlled: true,
+                x: utils.withGrid(20),
+                y: utils.withGrid(14),
+            }),
+        },
+        cutsceneSpaces: {
+            [utils.asGridCoord(20,13)]: [
+                {
+                    events: [
+                        { type: "changeMap", map: "DemoRoom" }
+                    ]
+                }
+            ],
+            [utils.asGridCoord(21,13)]: [
+                {
+                    events: [
+                        { type: "changeMap", map: "DemoRoom" }
+                    ]
+                }
+            ]
+        },
     },
 }

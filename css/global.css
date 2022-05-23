@@ -1,4 +1,5 @@
 @import "text-messages.css";
+@import "SceneTransition.css";
 
 :root {
     --border-color: #291d4d;

@@ -67,7 +67,7 @@ class Overworld {
     init () {
         console.log('Ура игра запустилась!');
 
-        this.startMap(window.OverworldMaps.DemoRoom);
+        this.startMap(window.OverworldMaps.PC);
 
         this.bindActionInput();
         this.bindHeroPositionCheck();
@@ -77,32 +77,12 @@ class Overworld {
 
         this.startGameLoop();
 
-        // this.map.startCutscene([
-        //     { type: 'textMessage', text: 'какая чудесная игрулька получается)))'},
-        //     { who: 'npcB', type: 'walk', direction: 'up' },
-        //     { who: 'npcB', type: 'walk', direction: 'up' },
-        //     { who: 'npcB', type: 'walk', direction: 'right' },
-        //     { who: 'npcB', type: 'walk', direction: 'right' },
-        //     { who: 'npcB', type: 'walk', direction: 'right' },
-        //     { who: 'npcB', type: 'walk', direction: 'right' },
-        //     { who: 'npcB', type: 'walk', direction: 'up' },
-        //     { who: 'npcB', type: 'walk', direction: 'up' },
-        //     { who: 'npcB', type: 'walk', direction: 'up' },
-        //     { who: 'npcB', type: 'walk', direction: 'down' },
-        //     { who: 'npcB', type: 'walk', direction: 'down' },
-        //     { who: 'npcB', type: 'walk', direction: 'down' },
-        //     { who: 'npcB', type: 'walk', direction: 'left' },
-        //     { who: 'npcB', type: 'walk', direction: 'left' },
-        //     { who: 'npcB', type: 'walk', direction: 'left' },
-        //     { who: 'npcB', type: 'walk', direction: 'left' },
-        //     { who: 'npcB', type: 'walk', direction: 'down' },
-        //
-        //     { who: 'hero', type: 'walk', direction: 'down' },
-        //     { who: 'hero', type: 'walk', direction: 'down' },
-        //     { who: 'npcA', type: 'walk', direction: 'left' },
-        //     { who: 'npcA', type: 'walk', direction: 'left' },
-        //     { who: 'npcA', type: 'stand', direction: 'up', time: 800 },
-        // ]);
+        this.map.startCutscene([
+            { type: 'textMessage', text: 'Приветствую'},
+            { type: 'textMessage', text: 'К сожалению ты попал сюда'},
+            { type: 'textMessage', text: 'Твоя главная задача - уволиться'},
+            { type: 'textMessage', text: 'Будет еще несколько вариантов выиграть'},
+        ]);
 
 
     }
