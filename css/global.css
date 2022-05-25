@@ -1,5 +1,9 @@
 @import "text-messages.css";
 @import "SceneTransition.css";
+@import "Battle.css";
+@import "Combatant.css";
+@import "Team.css";
+@import "SubmissionMenu.css";
 
 :root {
     --border-color: #291d4d;
@@ -33,5 +37,8 @@ body {
 
 .game-container canvas {
     image-rendering: pixelated;
+    background: url(../images/maps/PC/hell.gif);
+    background-size: cover;
+    background-position-y: center;
 }
 

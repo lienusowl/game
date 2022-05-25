@@ -67,7 +67,7 @@ class Overworld {
     init () {
         console.log('Ура игра запустилась!');
 
-        this.startMap(window.OverworldMaps.PC);
+        this.startMap(window.OverworldMaps.FrontDoor);
 
         this.bindActionInput();
         this.bindHeroPositionCheck();
@@ -78,10 +78,9 @@ class Overworld {
         this.startGameLoop();
 
         this.map.startCutscene([
-            { type: 'textMessage', text: 'Приветствую'},
-            { type: 'textMessage', text: 'К сожалению ты попал сюда'},
-            { type: 'textMessage', text: 'Твоя главная задача - уволиться'},
-            { type: 'textMessage', text: 'Будет еще несколько вариантов выиграть'},
+            { type: 'textMessage', text: 'Ох занесло тебя сюда((( Ладно, не беда'},
+            { type: 'textMessage', text: 'Запомни, твоя главная задача - уволиться'},
+            { type: 'textMessage', text: 'Совет - не верь льстецам!!!'},
         ]);
 
 

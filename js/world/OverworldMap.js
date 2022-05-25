@@ -237,31 +237,109 @@ window.OverworldMaps = {
             ]
         },
     },
-    Street: {
-        lowerSrc: "/images/maps/mapTest.png",
-        upperSrc: "/images/maps/KitchenUpper.png",
+
+
+    FrontDoor: {
+        lowerSrc: "/images/maps/PC/01_front_door.png",
+        upperSrc: "/images/maps/PC/01_front_door_up.png",
         gameObjects: {
             hero: new Person({
                 isPlayerControlled: true,
-                x: utils.withGrid(20),
-                y: utils.withGrid(14),
+                x: utils.withGrid(17),
+                y: utils.withGrid(48),
+                src: "/images/characters/people/lienusowl.png",
+            }),
+            NS: new Person({
+                x: utils.withGrid(17),
+                y: utils.withGrid(43),
+                src: "/images/characters/people/NS.png",
+                talking: [
+                    {
+                        events: [
+                            { type: 'textMessage', text: 'Фаталья Персеевна, а где тут туалет?', faceHero: 'NS' },
+                            { type: 'textMessage', text: 'по коридору первая дверь слева' },
+                            { type: 'textMessage', text: 'если ты нам подойдешь, я проведу для тебя экскурсию по офису' },
+                            { type: 'textMessage', text: 'ТОЛЬКО НЕ ИСПОЛЬЗУЙ МНОГО ТУАЛЕТНОЙ БУМАГИ' },
+                            { type: 'textMessage', text: 'сделаешь свои дела, возвращайся сюда в кабинет' },
+                        ],
+                    },
+                ]
             }),
         },
         cutsceneSpaces: {
-            [utils.asGridCoord(20,13)]: [
+            [utils.asGridCoord(17,47)]: [
                 {
                     events: [
-                        { type: "changeMap", map: "DemoRoom" }
+                        { who: "NS", type: "walk",  direction: "down" },
+                        { who: "NS", type: "walk",  direction: "down" },
+                        { who: "NS", type: "stand",  direction: "down", },
+                        { who: "NS", type: "stand",  direction: "down", },
+                        { who: "NS", type: "stand",  direction: "down", },
+                        { type: "textMessage", text:"Вздравствуй, молодой студентик, меня зовут Фаталья Персеевна"},
+                        { type: "textMessage", text:"Я пригласила, тебя работать в нашу Успешную ИТ компанию"},
+                        { type: "textMessage", text:"Пройдем в кабинет Генерального директора для прохождения собеседования"},
+                        { type: "textMessage", text:"Следуй за мной и заходи в кабинет"},
+                        { who: "NS", type: "walk",  direction: "up" },
+                        { who: "NS", type: "walk",  direction: "up" },
+                        { who: "NS", type: "stand",  direction: "up", },
+                        { who: "NS", type: "stand",  direction: "up", },
+                        { who: "NS", type: "stand",  direction: "up", },
+                        { who: "NS", type: "walk",  direction: "up" },
+                        { who: "NS", type: "walk",  direction: "up" },
+                        { who: "NS", type: "walk",  direction: "up" },
+                        { who: "NS", type: "walk",  direction: "up" },
+                        { who: "NS", type: "stand",  direction: "up", },
+                        { who: "NS", type: "stand",  direction: "up", },
+                        { who: "NS", type: "stand",  direction: "up", },
+                        { who: "NS", type: "walk",  direction: "up" },
+                        { who: "NS", type: "walk",  direction: "up" },
+                        { who: "NS", type: "stand",  direction: "up", },
+                        { who: "NS", type: "stand",  direction: "up", },
+                        { who: "NS", type: "stand",  direction: "up", },
+                        { who: "NS", type: "stand",  direction: "up", },
+                        { who: "NS", type: "stand",  direction: "up", },
+                        { who: "NS", type: "stand",  direction: "up", },
+                        { who: "NS", type: "stand",  direction: "up", },
+                        { who: "NS", type: "walk",  direction: "left" },
+                        { who: "NS", type: "walk",  direction: "left" },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "walk",  direction: "left" },
+                        { who: "NS", type: "walk",  direction: "left" },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "walk",  direction: "left" },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "walk",  direction: "left" },
+                        { who: "NS", type: "walk",  direction: "left" },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "walk",  direction: "left" },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "walk",  direction: "left" },
+                        { who: "NS", type: "walk",  direction: "left" },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "stand",  direction: "left", },
+                        { who: "NS", type: "stand",  direction: "left", },
                     ]
                 }
             ],
-            [utils.asGridCoord(21,13)]: [
+            [utils.asGridCoord(5,10)]: [
                 {
                     events: [
-                        { type: "changeMap", map: "DemoRoom" }
+                        { type: "changeMap", map: "PC" }
                     ]
                 }
             ]
         },
-    },
+    }
 }
