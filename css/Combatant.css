@@ -1,0 +1,167 @@
+.Combatant {
+    width: 65px;
+    height: 15px;
+    position: absolute;
+}
+
+.Battle .Combatant {
+    transform: scale(2);
+}
+
+.Battle .Combatant[data-active='false'] {
+    opacity: 0;
+}
+.Battle .Combatant[data-active='true'] {
+    opacity: 1;
+}
+
+.Combatant[data-team='player'] {
+    top: 70px;
+    left: 45px;
+}
+
+.Combatant[data-team='enemy'] {
+    top: 35px;
+    right: 75px;
+}
+
+.Combatant_character_crop {
+    position: absolute;
+    bottom: 3px;
+    left: 3px;
+    width: 25px;
+    height: 15px;
+    overflow: hidden;
+}
+
+.Combatant_character {
+    display: block;
+    position: absolute;
+    left: -10px;
+    bottom: 0;
+}
+
+.Battle .Combatant_character_crop {
+    display: none;
+}
+
+.Combatant_name {
+    position: absolute;
+    left: 2px;
+    top: -7px;
+    white-space: nowrap;
+    background: var(--menu-font-color);
+    color: #fff;
+    font-size: 3px;
+    padding: 2px 4px;
+    margin: 0;
+    z-index: 0;
+}
+
+.Combatant_name span {
+    position: absolute;
+    top: -4px;
+    background: #222;
+    padding: 1px;
+    left: -2px;
+}
+
+.Combatant_type {
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    width: 10px;
+    height: 10px;
+}
+
+.Combatant_life_container {
+    position: absolute;
+    background: #222;
+    border: 1px solid rgb(255 255 255 / 10%);
+    left: 17px;
+    top: 3px;
+    width: 45px;
+    height: 5px;
+}
+
+.Combatant_life_container > rect {
+    transition: all .3s;
+}
+
+.Combatant_xp_container {
+    position: absolute;
+    background: #222;
+    border: 1px solid rgb(255 255 255 / 10%);
+    left: 17px;
+    top: 8px;
+    width: 25px;
+    height: 4px;
+    border-top: 1px solid transparent;
+}
+
+.Combatant_level {
+    position: absolute;
+    font-size: 12px;
+    left: 0;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #605f56;
+    border: 1px solid #302e26;
+    margin: 0;
+    border-radius: 50%;
+    color: #000;
+    text-shadow: 0.2px 0.2px 0 #848484;
+}
+
+.Combatant_status {
+    position: absolute;
+    font-size: 5px;
+    left: 47px;
+    bottom: -3px;
+    padding: 0 2px;
+    background: #222;
+    color: #fff;
+    margin: 0;
+}
+
+.Combatant_status[data-status='normal'] {
+    color: #fff;
+}
+.Combatant_status[data-status='hard'] {
+    color: #ec9641;
+}
+.Combatant_status[data-status='epic'] {
+    color: #e65a5d;
+}
+.Combatant_status[data-status='legendary'] {
+    color: #c4b632;
+}
+
+.Weapon {
+    position: absolute;
+    transform: scale(2);
+    background: url(/images/characters/weapons/weapon-shadow.png) no-repeat no-repeat;
+    image-rendering: pixelated;
+}
+
+.Weapon[data-team='player'] {
+    bottom: 50px;
+    left: 80px;
+}
+
+.Weapon[data-team='enemy'] {
+    top: 75px;
+    right: 70px;
+}
+
+.Weapon[data-active='false'] {
+    opacity: 0;
+}
+
+.Weapon[data-active='true'] {
+    opacity: 1;
+}

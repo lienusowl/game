@@ -78,6 +78,7 @@ class Overworld {
         this.startGameLoop();
 
         this.map.startCutscene([
+            { type: 'battle' },
             { type: 'textMessage', text: 'Ох занесло тебя сюда((( Ладно, не беда'},
             { type: 'textMessage', text: 'Запомни, твоя главная задача - уволиться'},
             { type: 'textMessage', text: 'Совет - не верь льстецам!!!'},

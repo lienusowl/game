@@ -1,5 +1,41 @@
 class Battle {
     constructor() {
+        this.combatant = {
+            'player1': new Combatant({
+                ...Weapons.w001,
+                team: 'player',
+                hp: 30,
+                maxHp: 50,
+                xp: 75,
+                maxXp: 100,
+                level: 1,
+                status: null,
+            }, this),
+            'enemy1': new Combatant({
+                ...Weapons.w002,
+                team: 'enemy',
+                hp: 25,
+                maxHp: 50,
+                xp: 20,
+                maxXp: 100,
+                level: 1,
+                status: null,
+            }, this),
+            'enemy2': new Combatant({
+                ...Weapons.w002,
+                team: 'enemy',
+                hp: 20,
+                maxHp: 50,
+                xp: 30,
+                maxXp: 100,
+                level: 1,
+                status: null,
+            }, this),
+        }
+        this.activeCombatants = {
+            player: 'player1',
+            enemy: 'enemy1',
+        }
     }
 
     createElement () {
@@ -7,11 +43,11 @@ class Battle {
         this.element.classList.add('Battle');
         this.element.innerHTML = (`
             <div class="Battle_hero">
-                <img src="${'/images/characters/people/hero.png'}" alt="hero">
+                <img src="${'/images/characters/people/lienusowl.png'}" alt="hero">
             </div>
             
             <div class="Battle_enemy">
-                <img src="${'/images/characters/people/npc3.png'}" alt="enemy">
+                <img src="${'/images/characters/people/NS.png'}" alt="enemy">
             </div>
         `);
     }
@@ -19,5 +55,11 @@ class Battle {
     init (container) {
         this.createElement();
         container.appendChild(this.element);
+
+        Object.keys(this.combatant).forEach(key => {
+            let combatant = this.combatant[key];
+            combatant.id = key;
+            combatant.init(this.element);
+        })
     }
 }
