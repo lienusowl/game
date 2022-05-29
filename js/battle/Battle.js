@@ -60,6 +60,18 @@ class Battle {
             let combatant = this.combatant[key];
             combatant.id = key;
             combatant.init(this.element);
-        })
+        });
+
+        this.turnCycle = new TurnCycle({
+            battle: this,
+            onNewEvent: event => {
+                return new Promise(resolve => {
+                    const battleEvent = new BattleEvent(event, this);
+                    battleEvent.init(resolve);
+                })
+            }
+        });
+
+        this.turnCycle.init();
     }
 }

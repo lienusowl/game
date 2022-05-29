@@ -12,7 +12,7 @@ class Combatant {
     }
 
     get xpPercent () {
-        return  this.xp / this.maxXp * 100;
+        return this.xp / this.maxXp * 100;
     }
 
     get isActive() {
@@ -68,6 +68,51 @@ class Combatant {
         // и выведем текущий уровень
         this.hudElement.querySelector(".Combatant_level").innerText = this.level;
 
+        // обновим статус
+        const statusElement = this.hudElement.querySelector('.Combatant_status');
+        if (this.status) {
+            statusElement.innerHTML = this.status.type;
+            statusElement.style.display = 'block';
+        } else {
+            statusElement.innerHTML = '';
+            statusElement.style.display = 'none';
+        }
+
+    }
+
+    getReplaceEvents (originalEvents) {
+        if (this.status?.type === 'hard' && utils.randomFromArray([true, false, false])) {
+            return [
+                {type: 'textMessage', text: `${this.name} какое то сообщение`},
+            ]
+        }
+        return originalEvents;
+    }
+
+    getPostEvents () {
+        if (this.status?.type === 'hard') {
+            return [
+                { type: 'textMessage', text: 'крепко уебал', },
+                { type: 'stateChange', recover: 5, onCaster: true, },
+            ]
+        }
+        return [];
+    }
+
+    decrementStatus () {
+        if (this.status?.expiresIn > 0) {
+            this.status.expiresIn -= 1;
+            if (this.status.expiresIn === 0) {
+                this.update({
+                    status: null,
+                });
+                return {
+                    type: 'textMessage',
+                    text: 'Закончились оборонительные маты, здоровье не будет восстанавливаться',
+                }
+            }
+        }
+        return null;
     }
 
     init (container) {
