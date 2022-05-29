@@ -4,6 +4,7 @@
 @import "Combatant.css";
 @import "Team.css";
 @import "SubmissionMenu.css";
+@import "KeyboardMenu.css";
 
 :root {
     --border-color: #291d4d;

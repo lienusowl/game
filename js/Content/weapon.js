@@ -11,7 +11,7 @@ window.Weapons = {
         type: WeaponTypes.normal,
         src: '/images/characters/weapons/w001.png',
         icon: '/images/characters/weapons/normal_ico.png',
-        actions: [ 'damage1', 'damage1' ],
+        actions: [ 'damage1', 'damage2', 'damage3' ],
     },
     'w002': {
         name: 'Компьютерная клавиатура',
