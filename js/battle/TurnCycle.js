@@ -27,7 +27,8 @@ class TurnCycle {
             await this.onNewEvent({
                 type: 'textMessage',
                 text: `меняем оружие на ${submission.replacement.name}`,
-            })
+            });
+            this.nextTurn();
             return;
         }
 
@@ -68,15 +69,19 @@ class TurnCycle {
             await this.onNewEvent(expiredEvent)
         }
 
+        this.nextTurn();
+
+    }
+
+    nextTurn () {
         this.currentTeam = this.currentTeam === "player" ? "enemy" : "player";
         this.turn();
-
     }
 
     async init() {
         await this.onNewEvent({
           type: "textMessage",
-          text: "The battle is starting!"
+          text: "да будет бой!"
         })
 
         //Start the first turn!
