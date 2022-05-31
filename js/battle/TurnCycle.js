@@ -1,28 +1,43 @@
 class TurnCycle {
-    constructor({battle, onNewEvent}) {
+    constructor({ battle, onNewEvent }) {
         this.battle = battle;
         this.onNewEvent = onNewEvent;
-        this.currentTeam = 'player'; //или противник
+        this.currentTeam = "player"; //or "enemy"
     }
 
-    async turn () {
-        // чья очередь
+    async turn() {
+        //Get the caster
         const casterId = this.battle.activeCombatants[this.currentTeam];
         const caster = this.battle.combatant[casterId];
-
-        // получим врага
-        const enemyId = this.battle.activeCombatants[caster.team === 'player' ? 'enemy' : 'player'];
+        const enemyId = this.battle.activeCombatants[caster.team === "player" ? "enemy" : "player"]
         const enemy = this.battle.combatant[enemyId];
 
         const submission = await this.onNewEvent({
-            type: 'submissionMenu',
+            type: "submissionMenu",
             caster,
             enemy
         });
 
-        const resultingEvents = caster.getReplaceEvents(submission.action.success);
+        // хотим заменить оружие
+        if (submission.replacement) {
+            await this.onNewEvent({
+                type: 'replace',
+                replacement: submission.replacement,
+            })
+            await this.onNewEvent({
+                type: 'textMessage',
+                text: `меняем оружие на ${submission.replacement.name}`,
+            })
+            return;
+        }
 
-        for (let i = 0; i < resultingEvents.length; i++) {
+        if (submission.instanceId) {
+            this.battle.items = this.battle.items.filter(i => i.instanceId !== submission.instanceId)
+        }
+
+        const resultingEvents = caster.getReplacedEvents(submission.action.success);
+
+        for (let i=0; i<resultingEvents.length; i++) {
             const event = {
                 ...resultingEvents[i],
                 submission,
@@ -33,9 +48,10 @@ class TurnCycle {
             await this.onNewEvent(event);
         }
 
-        // есть ли доп события - делаем что то после начала хода
+        //Check for post events
+        //(Do things AFTER your original turn submission)
         const postEvents = caster.getPostEvents();
-        for (let i = 0; i < postEvents.length; i++ ) {
+        for (let i=0; i < postEvents.length; i++ ) {
             const event = {
                 ...postEvents[i],
                 submission,
@@ -46,7 +62,7 @@ class TurnCycle {
             await this.onNewEvent(event);
         }
 
-        // проверим работает ли еще статус
+        //Check for status expire
         const expiredEvent = caster.decrementStatus();
         if (expiredEvent) {
             await this.onNewEvent(expiredEvent)
@@ -54,15 +70,18 @@ class TurnCycle {
 
         this.currentTeam = this.currentTeam === "player" ? "enemy" : "player";
         this.turn();
+
     }
 
-    async init () {
+    async init() {
         await this.onNewEvent({
-            type: 'textMessage',
-            text: 'Да будет бой!'
-        });
+          type: "textMessage",
+          text: "The battle is starting!"
+        })
 
-        // запускаем ход
-        await this.turn();
+        //Start the first turn!
+        this.turn();
+
     }
+
 }

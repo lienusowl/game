@@ -9,6 +9,17 @@ class Battle {
                 xp: 75,
                 maxXp: 100,
                 level: 1,
+                status: { type : 'hard' },
+                isPlayerControlled: true,
+            }, this),
+            'player2': new Combatant({
+                ...Weapons.w002,
+                team: 'player',
+                hp: 30,
+                maxHp: 50,
+                xp: 75,
+                maxXp: 100,
+                level: 1,
                 status: null,
                 isPlayerControlled: true,
             }, this),
@@ -37,42 +48,49 @@ class Battle {
             player: 'player1',
             enemy: 'enemy1',
         }
+        this.items = [
+            { actionId: "item_recoverStatus", instanceId: "p1", team: "player" },
+            { actionId: "item_recoverStatus", instanceId: "p2", team: "player" },
+            { actionId: "item_recoverStatus", instanceId: "p3", team: "enemy" },
+
+            { actionId: "item_recoverHp", instanceId: "p4", team: "player" },
+        ]
     }
 
-    createElement () {
-        this.element = document.createElement('div');
-        this.element.classList.add('Battle');
+    createElement() {
+        this.element = document.createElement("div");
+        this.element.classList.add("Battle");
         this.element.innerHTML = (`
-            <div class="Battle_hero">
-                <img src="${'/images/characters/people/lienusowl.png'}" alt="hero">
-            </div>
-            
-            <div class="Battle_enemy">
-                <img src="${'/images/characters/people/NS.png'}" alt="enemy">
-            </div>
-        `);
+    <div class="Battle_hero">
+      <img src="${'/images/characters/people/hero.png'}" alt="Hero" />
+    </div>
+    <div class="Battle_enemy">
+      <img src=${'/images/characters/people/npc3.png'} alt="Enemy" />
+    </div>
+    `)
     }
 
-    init (container) {
+    init(container) {
         this.createElement();
         container.appendChild(this.element);
 
         Object.keys(this.combatant).forEach(key => {
             let combatant = this.combatant[key];
             combatant.id = key;
-            combatant.init(this.element);
-        });
+            combatant.init(this.element)
+        })
 
         this.turnCycle = new TurnCycle({
             battle: this,
             onNewEvent: event => {
                 return new Promise(resolve => {
-                    const battleEvent = new BattleEvent(event, this);
+                    const battleEvent = new BattleEvent(event, this)
                     battleEvent.init(resolve);
                 })
             }
-        });
-
+        })
         this.turnCycle.init();
+
+
     }
 }

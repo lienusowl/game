@@ -80,7 +80,7 @@ class Combatant {
 
     }
 
-    getReplaceEvents (originalEvents) {
+    getReplacedEvents (originalEvents) {
         if (this.status?.type === 'hard' && utils.randomFromArray([true, false, false])) {
             return [
                 {type: 'textMessage', text: `${this.name} какое то сообщение`},
@@ -92,8 +92,8 @@ class Combatant {
     getPostEvents () {
         if (this.status?.type === 'hard') {
             return [
-                { type: 'textMessage', text: 'крепко уебал', },
-                { type: 'stateChange', recover: 5, onCaster: true, },
+                { type: 'textMessage', text: 'Здоровье восстановлено', },
+                { type: 'stateChange', recover: 15, onCaster: true, },
             ]
         }
         return [];

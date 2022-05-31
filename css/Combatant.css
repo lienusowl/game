@@ -6,12 +6,12 @@
 
 .Battle .Combatant {
     transform: scale(2);
+    transition: opacity 0.4s;
 }
-
-.Battle .Combatant[data-active='false'] {
+.Battle .Combatant[data-active="false"] {
     opacity: 0;
 }
-.Battle .Combatant[data-active='true'] {
+.Battle .Combatant[data-active="true"] {
     opacity: 1;
 }
 
@@ -144,6 +144,7 @@
 .Weapon {
     position: absolute;
     transform: scale(2);
+    transition: opacity 0.4s, transform 0.4s;
     background: url(/images/characters/weapons/weapon-shadow.png) no-repeat no-repeat;
     image-rendering: pixelated;
 }
@@ -160,8 +161,10 @@
 
 .Weapon[data-active='false'] {
     opacity: 0;
+    transform: translate3d(0,16px,0) scale(2);
 }
 
 .Weapon[data-active='true'] {
     opacity: 1;
+    transform: translate3d(0,0,0) scale(2);
 }
