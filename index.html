@@ -10,10 +10,27 @@
     <div class="game-container">
         <canvas class="game-canvas" width="360" height="200"></canvas>
     </div>
+    <div class="music">
+        <audio controls autoplay loop >
+            <source src="/assets/music/001.mp3" type="audio/ogg">
+        </audio>
+    </div>
+    <script>
+        window.addEventListener("DOMContentLoaded", event => {
+            const audio = document.querySelector("audio");
+            audio.volume = 0.2;
+            audio.play();
+        });
+    </script>
+
 
     <!-- контент -->
     <script src="/js/Content/weapon.js"></script>
     <script src="/js/Content/actions.js"></script>
+    <script src="/js/Content/enemies.js"></script>
+
+    <!-- состояние -->
+    <script src="/js/State/PlayerState.js"></script>
 
     <!-- скрипты -->
     <script src="/js/settings/utils.js"></script>
@@ -29,12 +46,15 @@
     <script src="/js/scene/RevealingText.js"></script>
     <script src="/js/scene/SceneTransition.js"></script>
     <script src="/js/settings/KeyboardMenu.js"></script>
+    <script src="/js/settings/Hud.js"></script>
+    <script src="/js/settings/PauseMenu.js"></script>
 
     <!-- Боевка -->
     <script src="/js/battle/Battle.js"></script>
     <script src="/js/battle/Combatant.js"></script>
     <script src="/js/battle/Team.js"></script>
     <script src="/js/battle/SubmissionMenu.js"></script>
+    <script src="/js/battle/ReplacementMenu.js"></script>
     <script src="/js/battle/BattleEvent.js"></script>
     <script src="/js/battle/TurnCycle.js"></script>
     <script src="/js/battle/BattleAnimations.js"></script>

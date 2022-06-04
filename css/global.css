@@ -5,6 +5,8 @@
 @import "Team.css";
 @import "SubmissionMenu.css";
 @import "KeyboardMenu.css";
+@import "Hud.css";
+@import "Menus.css";
 
 :root {
     --border-color: #291d4d;
@@ -38,8 +40,14 @@ body {
 
 .game-container canvas {
     image-rendering: pixelated;
-    background: url(../images/maps/PC/hell.gif);
+    background: #3e3e3e;
     background-size: cover;
     background-position-y: center;
 }
 
+.music {
+    position: fixed;
+    bottom: 0;
+    right: auto;
+    left: auto;
+}

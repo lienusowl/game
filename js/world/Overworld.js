@@ -35,9 +35,12 @@ class Overworld {
             // рисуем верхний слой
             this.map.drawUpperImage(this.ctx, cameraPerson);
 
-            requestAnimationFrame(() => {
-                step();
-            });
+            if (!this.map.isPaused) {
+                requestAnimationFrame(() => {
+                    step();
+                });
+            }
+
         }
         step();
     }
@@ -46,6 +49,14 @@ class Overworld {
         new KeyPressListener('Enter', () => {
             // Чекаем если ли с кем потрещать с помощью диалогового окна
             this.map.checkForActionCutscene();
+        })
+
+        new KeyPressListener("Escape", () => {
+            if (!this.map.isCutscenePlaying) {
+                this.map.startCutscene([
+                    { type: "pause" }
+                ])
+            }
         })
     }
 
@@ -67,6 +78,9 @@ class Overworld {
     init () {
         console.log('Ура игра запустилась!');
 
+        this.hud = new Hud();
+        this.hud.init(document.querySelector(".game-container"));
+
         this.startMap(window.OverworldMaps.FrontDoor);
 
         this.bindActionInput();
@@ -76,14 +90,5 @@ class Overworld {
         this.directionInput.init();
 
         this.startGameLoop();
-
-        this.map.startCutscene([
-            { type: 'battle' },
-            { type: 'textMessage', text: 'Ох занесло тебя сюда((( Ладно, не беда'},
-            { type: 'textMessage', text: 'Запомни, твоя главная задача - уволиться'},
-            { type: 'textMessage', text: 'Совет - не верь льстецам!!!'},
-        ]);
-
-
     }
 }

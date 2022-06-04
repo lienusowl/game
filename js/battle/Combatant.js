@@ -2,7 +2,8 @@ class Combatant {
     constructor(config, battle) {
         Object.keys(config).forEach(key => {
             this[key] = config[key];
-        });
+        })
+        this.hp = typeof(this.hp) === "undefined" ? this.maxHp : this.hp;
         this.battle = battle;
     }
 
@@ -16,7 +17,11 @@ class Combatant {
     }
 
     get isActive() {
-        return this.battle.activeCombatants[this.team] === this.id;
+        return this.battle?.activeCombatants[this.team] === this.id;
+    }
+
+    get givesXp () {
+        return this.level * 20;
     }
 
     createElement () {

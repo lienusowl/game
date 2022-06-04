@@ -12,6 +12,7 @@ class OverworldMap {
         this.upperImage.src = config.upperSrc; // верхний слой
 
         this.isCutscenePlaying = false;
+        this.isPaused = false;
     }
 
     drawLowerImage (ctx, cameraPerson) {
@@ -261,6 +262,7 @@ window.OverworldMaps = {
                             { type: 'textMessage', text: 'если ты нам подойдешь, я проведу для тебя экскурсию по офису' },
                             { type: 'textMessage', text: 'ТОЛЬКО НЕ ИСПОЛЬЗУЙ МНОГО ТУАЛЕТНОЙ БУМАГИ' },
                             { type: 'textMessage', text: 'сделаешь свои дела, возвращайся сюда в кабинет' },
+                            { type: "battle",  enemyId: "NS", },
                         ],
                     },
                 ]
@@ -272,10 +274,10 @@ window.OverworldMaps = {
                     events: [
                         { who: "NS", type: "walk",  direction: "down" },
                         { who: "NS", type: "walk",  direction: "down" },
+                        { who: "NS", type: "walk",  direction: "down" },
                         { who: "NS", type: "stand",  direction: "down", },
-                        { who: "NS", type: "stand",  direction: "down", },
-                        { who: "NS", type: "stand",  direction: "down", },
-                        { type: "textMessage", text:"Вздравствуй, молодой студентик, меня зовут Фаталья Персеевна"},
+                        { type: "battle",  enemyId: "NS", },
+                        { type: "textMessage", text:"Здравствуй, молодой студентик, меня зовут Фаталья Персеевна"},
                         { type: "textMessage", text:"Я пригласила, тебя работать в нашу Успешную ИТ компанию"},
                         { type: "textMessage", text:"Пройдем в кабинет Генерального директора для прохождения собеседования"},
                         { type: "textMessage", text:"Следуй за мной и заходи в кабинет"},

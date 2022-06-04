@@ -1,60 +1,93 @@
 class Battle {
-    constructor() {
-        this.combatant = {
-            'player1': new Combatant({
-                ...Weapons.w001,
-                team: 'player',
-                hp: 30,
-                maxHp: 50,
-                xp: 75,
-                maxXp: 100,
-                level: 1,
-                status: { type : 'hard' },
-                isPlayerControlled: true,
-            }, this),
-            'player2': new Combatant({
-                ...Weapons.w002,
-                team: 'player',
-                hp: 30,
-                maxHp: 50,
-                xp: 75,
-                maxXp: 100,
-                level: 1,
-                status: null,
-                isPlayerControlled: true,
-            }, this),
-            'enemy1': new Combatant({
-                ...Weapons.w002,
-                team: 'enemy',
-                hp: 25,
-                maxHp: 50,
-                xp: 20,
-                maxXp: 100,
-                level: 1,
-                status: null,
-            }, this),
-            'enemy2': new Combatant({
-                ...Weapons.w002,
-                team: 'enemy',
-                hp: 20,
-                maxHp: 50,
-                xp: 30,
-                maxXp: 100,
-                level: 1,
-                status: null,
-            }, this),
-        }
-        this.activeCombatants = {
-            player: 'player1',
-            enemy: 'enemy1',
-        }
-        this.items = [
-            { actionId: "item_recoverStatus", instanceId: "p1", team: "player" },
-            { actionId: "item_recoverStatus", instanceId: "p2", team: "player" },
-            { actionId: "item_recoverStatus", instanceId: "p3", team: "enemy" },
+    constructor({ enemy, onComplete }) {
 
-            { actionId: "item_recoverHp", instanceId: "p4", team: "player" },
-        ]
+        this.enemy = enemy;
+        this.onComplete = onComplete;
+
+
+        this.combatant = {
+            // 'player1': new Combatant({
+            //     ...Weapons.w001,
+            //     team: 'player',
+            //     hp: 30,
+            //     maxHp: 50,
+            //     xp: 95,
+            //     maxXp: 100,
+            //     level: 1,
+            //     status: { type : 'hard' },
+            //     isPlayerControlled: true,
+            // }, this),
+            // 'player2': new Combatant({
+            //     ...Weapons.w002,
+            //     team: 'player',
+            //     hp: 30,
+            //     maxHp: 50,
+            //     xp: 75,
+            //     maxXp: 100,
+            //     level: 1,
+            //     status: null,
+            //     isPlayerControlled: true,
+            // }, this),
+            // 'enemy1': new Combatant({
+            //     ...Weapons.w002,
+            //     team: 'enemy',
+            //     hp: 1,
+            //     maxHp: 50,
+            //     xp: 20,
+            //     maxXp: 100,
+            //     level: 1,
+            //     status: null,
+            // }, this),
+            // 'enemy2': new Combatant({
+            //     ...Weapons.w002,
+            //     team: 'enemy',
+            //     hp: 20,
+            //     maxHp: 50,
+            //     xp: 30,
+            //     maxXp: 100,
+            //     level: 1,
+            //     status: null,
+            // }, this),
+        }
+
+        this.activeCombatants = {
+            player: null, //'player1',
+            enemy: null, //'enemy1',
+        }
+
+        window.playerState.lineup.forEach(id => {
+            this.addCombatant(id, 'player', window.playerState.weapon[id]);
+        });
+
+
+        Object.keys(this.enemy.weapons).forEach(key => {
+            this.addCombatant("e_"+key, 'enemy', this.enemy.weapons[key]);
+        });
+
+        this.items = [];
+
+        window.playerState.items.forEach(item => {
+            this.items.push({
+                ...item,
+                team: 'player'
+            })
+        })
+
+        this.usedInstanceIds = {};
+    }
+
+    addCombatant(id, team, config) {
+        this.combatant[id] = new Combatant({
+            ...Weapons[config.weaponId],
+            ...config,
+            team,
+            isPlayerControlled: team === "player"
+        }, this)
+
+        //Populate first active pizza
+
+        console.log(this)
+        this.activeCombatants[team] = this.activeCombatants[team] || id
     }
 
     createElement() {
@@ -62,10 +95,10 @@ class Battle {
         this.element.classList.add("Battle");
         this.element.innerHTML = (`
     <div class="Battle_hero">
-      <img src="${'/images/characters/people/hero.png'}" alt="Hero" />
+      <img src="${'/images/characters/people/lienusowl.png'}" alt="Hero" />
     </div>
     <div class="Battle_enemy">
-      <img src=${'/images/characters/people/npc3.png'} alt="Enemy" />
+      <img src=${this.enemy.src} alt=${this.enemy.name} />
     </div>
     `)
     }
@@ -74,11 +107,24 @@ class Battle {
         this.createElement();
         container.appendChild(this.element);
 
+        this.playerTeam = new Team("player", "Hero");
+        this.enemyTeam = new Team("enemy", "Bully");
+
         Object.keys(this.combatant).forEach(key => {
             let combatant = this.combatant[key];
             combatant.id = key;
             combatant.init(this.element)
+
+            //Add to correct team
+            if (combatant.team === "player") {
+                this.playerTeam.combatants.push(combatant);
+            } else if (combatant.team === "enemy") {
+                this.enemyTeam.combatants.push(combatant);
+            }
         })
+
+        this.playerTeam.init(this.element);
+        this.enemyTeam.init(this.element);
 
         this.turnCycle = new TurnCycle({
             battle: this,
@@ -87,6 +133,33 @@ class Battle {
                     const battleEvent = new BattleEvent(event, this)
                     battleEvent.init(resolve);
                 })
+            },
+            onWinner: winner => {
+
+                if (winner === "player") {
+                    const playerState = window.playerState;
+                    Object.keys(playerState.weapon).forEach(id => {
+                        const playerStateWeapon = playerState.weapon[id];
+                        const combatant = this.combatant[id];
+                        if (combatant) {
+                            playerStateWeapon.hp = combatant.hp;
+                            playerStateWeapon.xp = combatant.xp;
+                            playerStateWeapon.maxXp = combatant.maxXp;
+                            playerStateWeapon.level = combatant.level;
+                        }
+                    })
+
+                    //Get rid of player used items
+                    playerState.items = playerState.items.filter(item => {
+                        return !this.usedInstanceIds[item.instanceId]
+                    })
+
+                    //Send signal to update
+                    utils.emitEvent("PlayerStateUpdated");
+                }
+
+                this.element.remove();
+                this.onComplete();
             }
         })
         this.turnCycle.init();

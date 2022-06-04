@@ -26,14 +26,13 @@ window.Actions = {
             { type: "animation", animation: "glob", color: "#dafd2a" },
         ]
     },
-
-    // предметы
-    item_recoverStatus: {
+    item_recoverStatus: {// предметы
         name: 'восстановление здоровья',
         description: 'Пришла офигенная идея, здоровье восстанавливается',
         targetType: 'friendly',
         success: [
             { type: "textMessage", text: "{ACTION}!"},
+            { type:"stateChange", recover: 1000, },
             { type: "stateChange", status: { type: "hard", expiresIn: 3 } },
         ]
     },
