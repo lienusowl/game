@@ -19,11 +19,6 @@ window.Enemies = {
         name: 'NS',
         src: '/images/characters/people/NS.png',
         weapons: {
-            'weapon1': {
-                weaponId: 'w001',
-                maxHp: 20,
-                level: 5,
-            },
             'weapon2': {
                 weaponId: 'w002',
                 maxHp: 20,

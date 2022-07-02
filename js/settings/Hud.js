@@ -3,13 +3,13 @@ class Hud {
         this.scoreboards = [];
     }
 
-    update() {
+    update () {
         this.scoreboards.forEach(s => {
             s.update(window.playerState.weapon[s.id])
         })
     }
 
-    createElement() {
+    createElement () {
         if (this.element) {
             this.element.remove();
             this.scoreboards = [];
@@ -33,18 +33,18 @@ class Hud {
         this.update();
     }
 
-    init(container) {
+    init (container) {
         this.createElement();
         container.appendChild(this.element);
 
         document.addEventListener("PlayerStateUpdated", () => {
             this.update();
-        })
+        });
 
         document.addEventListener("LineupChanged", () => {
             this.createElement();
             container.appendChild(this.element);
-        })
+        });
 
     }
 

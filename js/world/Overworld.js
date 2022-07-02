@@ -69,7 +69,7 @@ class Overworld {
         })
     }
 
-    startMap(mapConfig) {
+    startMap (mapConfig) {
         this.map = new OverworldMap(mapConfig);
         this.map.overworld = this;
         this.map.mountObjects();

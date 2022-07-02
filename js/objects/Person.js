@@ -14,7 +14,7 @@ class Person extends GameObject {
         }
     }
 
-    update(state) {
+    update (state) {
         if (this.movingProgressRemaining > 0) {
             this.updatePosition();
         } else {
@@ -28,7 +28,7 @@ class Person extends GameObject {
         }
     }
 
-    startBehavior(state, behavior) {
+    startBehavior (state, behavior) {
         // Задаем направление персонажа для любого свободного пути
         this.direction = behavior.direction;
 
@@ -61,7 +61,7 @@ class Person extends GameObject {
 
     }
 
-    updatePosition() {
+    updatePosition () {
         const [property, change] = this.directionUpdate[this.direction];
         this[property] += change;
         this.movingProgressRemaining -= 1;
@@ -74,7 +74,7 @@ class Person extends GameObject {
         }
     }
 
-    updateSprite() {
+    updateSprite () {
         if (this.movingProgressRemaining > 0) {
             this.sprite.setAnimation("walk-"+this.direction);
             return;

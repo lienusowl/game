@@ -16,12 +16,19 @@ class Combatant {
         return this.xp / this.maxXp * 100;
     }
 
-    get isActive() {
+    get isActive () {
         return this.battle?.activeCombatants[this.team] === this.id;
     }
 
     get givesXp () {
-        return this.level * 20;
+        return this.level * 100;
+    }
+
+    get faceImg () {
+        if (this.team === 'player') {
+            return '/images/characters/people/face/hero.png';
+        }
+        return '';
     }
 
     createElement () {
@@ -32,18 +39,20 @@ class Combatant {
         this.hudElement.innerHTML = (`
             <p class="Combatant_name"><span>Оружие:</span>${this.name}</p>
             <p class="Combatant_level"></p>
+            <div class="Combatant_face">
+                <img src="${this.faceImg}" alt="">
+            </div>
             <div class="Combatant_character_crop">
                 <img class="Combatant_character" src="${this.src}" alt="${this.name}">
             </div>
             <img class="Combatant_type" src="${this.icon}" alt="${this.type}">
-            <svg viewBox="0 0 45 3" class="Combatant_life_container">
+            <svg viewBox="0 0 45 1" class="Combatant_life_container">
                 <rect x="0" y="0" width="0%" height="1" fill="#eb1b1b"/>
-                <rect x="0" y="1" width="0%" height="2" fill="#cc0000"/>
             </svg>
-            <svg viewBox="0 0 25 2" class="Combatant_xp_container">
-                <rect x="0" y="0" width="0%" height="3" fill="#ffd76a"/>
+            <svg viewBox="0 0 45 1" class="Combatant_xp_container">
+                <rect x="0" y="0" width="0%" height="1" fill="#ffd76a"/>
             </svg>
-            <p class="Combatant_status"></p>
+            <p class="Combatant_status">Усиление: <span></span></p>
         `);
 
         this.weaponElement = document.createElement("img");
@@ -56,7 +65,7 @@ class Combatant {
         this.xpFills = this.hudElement.querySelectorAll('.Combatant_xp_container > rect');
     }
 
-    update(changes={}) {
+    update (changes={}) {
         // обвновим когда прилетят ключики
         Object.keys(changes).forEach(key => {
             this[key] = changes[key]
@@ -74,10 +83,10 @@ class Combatant {
         this.hudElement.querySelector(".Combatant_level").innerText = this.level;
 
         // обновим статус
-        const statusElement = this.hudElement.querySelector('.Combatant_status');
+        const statusElement = this.hudElement.querySelector('.Combatant_status span');
         if (this.status) {
             statusElement.innerHTML = this.status.type;
-            statusElement.style.display = 'block';
+            statusElement.style.display = 'inline-block';
         } else {
             statusElement.innerHTML = '';
             statusElement.style.display = 'none';
@@ -97,7 +106,7 @@ class Combatant {
     getPostEvents () {
         if (this.status?.type === 'hard') {
             return [
-                { type: 'textMessage', text: 'Здоровье восстановлено', },
+                { type: 'textMessage', text: 'статус хард восстанавливает здоровье', },
                 { type: 'stateChange', recover: 15, onCaster: true, },
             ]
         }

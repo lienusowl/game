@@ -23,7 +23,7 @@ class SubmissionMenu {
         this.items = Object.values(quantityMap);
     }
 
-    getPages() {
+    getPages () {
 
         const backOption = {
             label: 'вернуться назад',
@@ -108,7 +108,7 @@ class SubmissionMenu {
         })
     }
 
-    menuSubmit(action, instanceId= null) {
+    menuSubmit (action, instanceId= null) {
 
         this.keyboardMenu?.end();
 
@@ -119,21 +119,20 @@ class SubmissionMenu {
         })
     }
 
-    decide() {
-        //TODO: Enemies should randomly decide what to do...
+    decide () {
+        //TODO: враг должен рандомно принимать решение
         this.menuSubmit(Actions[ this.caster.actions[0] ]);
     }
 
-    showMenu(container) {
+    showMenu (container) {
         this.keyboardMenu = new KeyboardMenu();
         this.keyboardMenu.init(container);
         this.keyboardMenu.setOptions( this.getPages().root )
     }
 
-    init(container) {
+    init (container) {
 
         if (this.caster.isPlayerControlled) {
-            //Show some UI
             this.showMenu(container)
         } else {
             this.decide()

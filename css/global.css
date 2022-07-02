@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 @import "text-messages.css";
 @import "SceneTransition.css";
 @import "Battle.css";
@@ -26,6 +27,7 @@ body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    font-family: 'Press Start 2P', cursive;
 }
 
 .game-container {

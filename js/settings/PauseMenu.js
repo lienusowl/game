@@ -3,7 +3,7 @@ class PauseMenu {
         this.onComplete = onComplete;
     }
 
-    getOptions(pageKey) {
+    getOptions (pageKey) {
 
         //Case 1: Show the first page of options
         if (pageKey === "root") {
@@ -73,7 +73,7 @@ class PauseMenu {
         ];
     }
 
-    createElement() {
+    createElement () {
         this.element = document.createElement("div");
         this.element.classList.add("PauseMenu")
         this.element.innerHTML = (`
@@ -81,14 +81,14 @@ class PauseMenu {
     `)
     }
 
-    close() {
+    close () {
         this.esc?.unbind();
         this.keyboardMenu.end();
         this.element.remove();
         this.onComplete();
     }
 
-    async init(container) {
+    async init (container) {
         this.createElement();
         this.keyboardMenu = new KeyboardMenu({
             descriptionContainer: container
@@ -98,7 +98,7 @@ class PauseMenu {
 
         container.appendChild(this.element);
 
-        utils.wait(200);
+        await utils.wait(200);
 
         this.esc = new KeyPressListener("Escape", () => {
             this.close();

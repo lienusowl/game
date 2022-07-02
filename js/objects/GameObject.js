@@ -17,7 +17,7 @@ class GameObject {
 
     }
 
-    mount(map) {
+    mount (map) {
         this.isMounted = true;
         map.addWall(this.x, this.y);
 
@@ -27,10 +27,10 @@ class GameObject {
         }, 10)
     }
 
-    update() {
+    update () {
     }
 
-    async doBehaviorEvent(map) {
+    async doBehaviorEvent (map) {
 
         // Ничего не делать, если есть более важная катсцена или у меня нет конфигурации, чтобы что-то делать.
         if (map.isCutscenePlaying || this.behaviorLoop.length === 0 || this.isStanding) {

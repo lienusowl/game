@@ -1,48 +1,57 @@
 window.Actions = {
-    damage1: {
-        name: 'Хлесткий удар, усиленный отрыжкой',
-        description: "размашистый удар по попке",
+    mouse_damage1: {
+        name: 'Кинуть оружие в противника',
+        description: "учти, потеряешь оружие",
         success: [
             { type: "animation", animation: "spin"},
-            { type: "stateChange", damage: 20},
+            { type: "stateChange", damage: 15},
+            { type: "stateChange", status: { type: "hard", expiresIn: 1 } },
+        ]
+    },
+    mouse_damage2: {
+        name: 'Раскрутить за провод и ударить',
+        description: "удар с усилением",
+        success: [
+            { type: "animation", animation: "spin"},
+            { type: "stateChange", damage: 15},
+        ]
+    },
+    mouse_damage3: {
+        name: 'Бесяво покликать',
+        description: "кликает противным звуком",
+        success: [
             { type: "animation", animation: "glob", color: "#dafd2a" },
             { type: "stateChange", damage: 5},
         ]
     },
-    damage2: {
-        name: 'Забыть чему учили в универе',
-        description: "удар с усилением",
+    unfriendly_fire1: {
+        name: 'Сказать, что увольняешься',
+        description: "Если честно я в шоке, может быть возьмешь отпуск за свой счет?",
         targetType: 'friendly',
         success: [
-            { type: "stateChange", status: { type: "normal", expiresIn: 3 } },
-            { type: "stateChange", status: { type: "hard", expiresIn: 3 } },
-        ]
-    },
-    damage3: {
-        name: 'Сказать, что увольняешься',
-        description: "все в офиге застывают",
-        success: [
-            { type: "textMessage", text: "{CASTER} использует {ACTION}!"},
             { type: "animation", animation: "glob", color: "#dafd2a" },
+            { type: "stateChange", recover: -500, },
+            { type: "textMessage", text: "угроза ни к чему не привела"},
+            { type: "stateChange", status: { type: "hard", expiresIn: 1 } },
         ]
     },
     item_recoverStatus: {// предметы
-        name: 'восстановление здоровья',
-        description: 'Пришла офигенная идея, здоровье восстанавливается',
+        name: 'Успокоиться',
+        description: 'Уровень стресса понизится и здоровье восстанавливается',
         targetType: 'friendly',
         success: [
-            { type: "textMessage", text: "{ACTION}!"},
-            { type:"stateChange", recover: 1000, },
+            { type:"textMessage", text: "Чувствуется прилив сил", },
+            { type:"stateChange", recover: 200, },
             { type: "stateChange", status: { type: "hard", expiresIn: 3 } },
         ]
     },
     item_recoverHp: {
-        name: "Parmesan",
-        targetType: "friendly",
+        name: "Вспомнить мемчик",
+        targetType: "Хорошее настроение повышает здоровье",
         success: [
-            { type:"textMessage", text: "{CASTER} sprinkles on some {ACTION}!", },
-            { type:"stateChange", recover: 10, },
-            { type:"textMessage", text: "{CASTER} recovers HP!", },
+            { type:"textMessage", text: "Чувствуется прилив сил", },
+            { type:"stateChange", recover: 50, },
+
         ]
     },
 }

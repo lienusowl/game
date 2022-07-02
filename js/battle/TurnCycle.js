@@ -6,8 +6,8 @@ class TurnCycle {
         this.currentTeam = "player"; //or "enemy"
     }
 
-    async turn() {
-        //Get the caster
+    async turn () {
+
         const casterId = this.battle.activeCombatants[this.currentTeam];
         const caster = this.battle.combatant[casterId];
         const enemyId = this.battle.activeCombatants[caster.team === "player" ? "enemy" : "player"]
@@ -102,8 +102,6 @@ class TurnCycle {
             })
         }
 
-        //Check for post events
-        //(Do things AFTER your original turn submission)
         const postEvents = caster.getPostEvents();
         for (let i=0; i < postEvents.length; i++ ) {
             const event = {
@@ -116,7 +114,6 @@ class TurnCycle {
             await this.onNewEvent(event);
         }
 
-        //Check for status expire
         const expiredEvent = caster.decrementStatus();
         if (expiredEvent) {
             await this.onNewEvent(expiredEvent)
@@ -148,15 +145,13 @@ class TurnCycle {
         return null;
     }
 
-    async init() {
+    async init () {
         await this.onNewEvent({
           type: "textMessage",
           text: `${this.battle.enemy.name} вступает в бой`
         })
 
-        //Start the first turn!
         this.turn();
-
     }
 
 }

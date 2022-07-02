@@ -7,20 +7,20 @@ window.WeaponTypes = {
 
 window.Weapons = {
     'w001': {
-        name: 'Компьютерная мышка',
+        name: 'Мышка',
         description: 'опасная мышь',
         type: WeaponTypes.normal,
         src: '/images/characters/weapons/w001.png',
         icon: '/images/characters/weapons/normal_ico.png',
-        actions: [ 'damage1', 'damage2', 'damage3' ],
+        actions: [ 'unfriendly_fire1', 'mouse_damage1', 'mouse_damage2', 'mouse_damage3' ],
     },
     'w002': {
-        name: 'Компьютерная клавиатура',
+        name: 'Клавиатура',
         description: 'опасная клава',
         type: WeaponTypes.hard,
         src: '/images/characters/weapons/w002.png',
         icon: '/images/characters/weapons/hard_ico.png',
-        actions: [ 'damage1', 'damage2', 'damage3' ],
+        actions: [ 'mouse_damage3', 'damage3' ],
     },
     'w003': {
         name: 'Заявление на отпуск',
@@ -36,7 +36,7 @@ window.Weapons = {
         type: WeaponTypes.legendary,
         src: '/images/characters/weapons/w001.png',
         icon: '/images/characters/weapons/legendary_ico.png',
-        actions: [ 'damage1' ],
+        actions: [ 'damage3' ],
     },
 
 }

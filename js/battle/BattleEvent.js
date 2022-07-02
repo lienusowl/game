@@ -4,8 +4,7 @@ class BattleEvent {
         this.battle = battle;
     }
 
-    textMessage(resolve) {
-
+    textMessage (resolve) {
         const text = this.event.text
             .replace("{CASTER}", this.event.caster?.name)
             .replace("{TARGET}", this.event.target?.name)
@@ -16,21 +15,21 @@ class BattleEvent {
             onComplete: () => {
                 resolve();
             }
-        })
-        message.init( this.battle.element )
+        });
+        message.init( this.battle.element );
     }
 
-    async stateChange(resolve) {
+    async stateChange (resolve) {
         const {caster, target, damage, recover, status, action} = this.event;
         let who = this.event.onCaster ? caster : target;
 
         if (damage) {
-            //modify the target to have less HP
+            //урон нанесен
             target.update({
                 hp: target.hp - damage
             })
 
-            //start blinking
+            //анимация
             target.weaponElement.classList.add("battle-damage-blink");
         }
 
@@ -55,20 +54,19 @@ class BattleEvent {
             })
         }
 
-
-        //Wait a little bit
-        await utils.wait(600)
+        //нанесли урон, чуть подождем и уберем класс с анимацией
+        await utils.wait(600);
 
         //Update Team components
         this.battle.playerTeam.update();
         this.battle.enemyTeam.update();
 
-        //stop blinking
+        //закончить анимацию
         target.weaponElement.classList.remove("battle-damage-blink");
         resolve();
     }
 
-    submissionMenu(resolve) {
+    submissionMenu (resolve) {
         const {caster} = this.event;
         const menu = new SubmissionMenu({
             caster: this.event.caster,
@@ -78,10 +76,10 @@ class BattleEvent {
                 return c.id !== caster.id && c.team === caster.team && c.hp > 0;
             }),
             onComplete: submission => {
-                //submission { what move to use, who to use it on }
                 resolve(submission)
             }
-        })
+        });
+
         menu.init( this.battle.element )
     }
 
@@ -110,14 +108,14 @@ class BattleEvent {
         replacement.update();
         await utils.wait(500);
 
-        //Update Team components
+        //обновим компоненты игроков
         this.battle.playerTeam.update();
         this.battle.enemyTeam.update();
 
         resolve();
     }
 
-    giveXp(resolve) {
+    giveXp (resolve) {
         let amount = this.event.xp;
         const {combatant} = this.event;
         const step = () => {
@@ -125,10 +123,10 @@ class BattleEvent {
                 amount -= 1;
                 combatant.xp += 1;
 
-                //Check if we've hit level up point
+                //проверка, что пора поднять уровень
                 if (combatant.xp === combatant.maxXp) {
                     combatant.xp = 0;
-                    combatant.maxXp = 100;
+                    combatant.maxXp = 100 * Number(combatant.level);
                     combatant.level += 1;
                 }
 
@@ -141,12 +139,12 @@ class BattleEvent {
         requestAnimationFrame(step);
     }
 
-    animation(resolve) {
+    animation (resolve) {
         const fn = BattleAnimations[this.event.animation];
         fn(this.event, resolve);
     }
 
-    init(resolve) {
+    init (resolve) {
         this[this.event.type](resolve);
     }
 }

@@ -256,6 +256,12 @@ window.OverworldMaps = {
                 src: "/images/characters/people/NS.png",
                 talking: [
                     {
+                        required: ['TALKED_TO_NS_FIRST_TIME'],
+                        events: [
+                            { type: 'textMessage', text: 'ну наконец то ты вернулся, пошли давай', faceHero: 'NS' },
+                        ]
+                    },
+                    {
                         events: [
                             { type: 'textMessage', text: 'Фаталья Персеевна, а где тут туалет?', faceHero: 'NS' },
                             { type: 'textMessage', text: 'по коридору первая дверь слева' },

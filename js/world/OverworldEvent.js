@@ -4,7 +4,7 @@ class OverworldEvent {
         this.event = event;
     }
 
-    stand(resolve) {
+    stand (resolve) {
         const who = this.map.gameObjects[ this.event.who ];
         who.startBehavior({
             map: this.map
@@ -24,7 +24,7 @@ class OverworldEvent {
         document.addEventListener("PersonStandComplete", completeHandler)
     }
 
-    walk(resolve) {
+    walk (resolve) {
         const who = this.map.gameObjects[ this.event.who ];
         who.startBehavior({
             map: this.map
@@ -45,7 +45,7 @@ class OverworldEvent {
 
     }
 
-    textMessage(resolve) {
+    textMessage (resolve) {
 
         if (this.event.faceHero) {
             const obj = this.map.gameObjects[this.event.faceHero];
@@ -59,7 +59,7 @@ class OverworldEvent {
         message.init( document.querySelector(".game-container") )
     }
 
-    changeMap(resolve) {
+    changeMap (resolve) {
         const sceneTransition = new SceneTransition();
         sceneTransition.init(document.querySelector('.game-container'), () => {
             this.map.overworld.startMap( window.OverworldMaps[this.event.map] );
@@ -67,8 +67,6 @@ class OverworldEvent {
 
             sceneTransition.fadeOut();
         });
-
-
     }
 
     battle (resolve) {
@@ -93,7 +91,7 @@ class OverworldEvent {
         menu.init(document.querySelector(".game-container"));
     }
 
-    init() {
+    init () {
         return new Promise(resolve => {
             this[this.event.type](resolve);
         });

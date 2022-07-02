@@ -3,9 +3,9 @@ class PlayerState {
         this.weapon = {
             "p1": {
                 weaponId: "w001",
-                hp: 300,
+                hp: 500,
                 maxHp: 500,
-                xp: 90,
+                xp: 0,
                 maxXp: 100,
                 level: 1,
                 status: { type: "hard" },
@@ -14,7 +14,7 @@ class PlayerState {
                 weaponId: "w002",
                 hp: 500,
                 maxHp: 500,
-                xp: 75,
+                xp: 0,
                 maxXp: 100,
                 level: 1,
                 status: null,
@@ -23,27 +23,31 @@ class PlayerState {
                 weaponId: "w003",
                 hp: 500,
                 maxHp: 500,
-                xp: 75,
+                xp: 0,
                 maxXp: 100,
                 level: 1,
                 status: null,
             }
         }
-        this.lineup = ['p1', 'p2', 'p3'];
+        this.lineup = ['p1', 'p2'];
         this.items = [
             { actionId: "item_recoverHp", instanceId: "item1" },
             { actionId: "item_recoverHp", instanceId: "item2" },
             { actionId: "item_recoverHp", instanceId: "item3" },
-        ]
+        ];
+        this.storyFlags = {
+            'DID_SOMETHING': true,
+            'DEFEATED_FIRST_BOSS': true,
+        }
     }
 
-    swapLineup(oldId, incomingId) {
+    swapLineup (oldId, incomingId) {
         const oldIndex = this.lineup.indexOf(oldId);
         this.lineup[oldIndex] = incomingId;
         utils.emitEvent("LineupChanged");
     }
 
-    moveToFront(futureFrontId) {
+    moveToFront (futureFrontId) {
         this.lineup = this.lineup.filter(id => id !== futureFrontId);
         this.lineup.unshift(futureFrontId);
         utils.emitEvent("LineupChanged");

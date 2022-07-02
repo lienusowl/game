@@ -8,7 +8,7 @@ class RevealingText {
         this.isDone = false;
     }
 
-    revealOneCharacter(list) {
+    revealOneCharacter (list) {
         const next = list.splice(0,1)[0];
         next.span.classList.add("revealed");
 
@@ -21,7 +21,7 @@ class RevealingText {
         }
     }
 
-    warpToDone() {
+    warpToDone () {
         clearTimeout(this.timeout);
         this.isDone = true;
         this.element.querySelectorAll("span").forEach(s => {
@@ -29,7 +29,7 @@ class RevealingText {
         })
     }
 
-    init() {
+    init () {
         let characters = [];
         this.text.split("").forEach(character => {
 

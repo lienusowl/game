@@ -1,11 +1,11 @@
 const utils = {
-    withGrid(n) {
+    withGrid (n) {
         return n * 16;
     },
-    asGridCoord(x,y) {
+    asGridCoord (x,y) {
         return `${x*16},${y*16}`
     },
-    nextPosition(initialX, initialY, direction) {
+    nextPosition (initialX, initialY, direction) {
         let x = initialX;
         let y = initialY;
         const size = 16;
@@ -20,14 +20,15 @@ const utils = {
         }
         return {x,y};
     },
-    oppositeDirection(direction) {
+
+    oppositeDirection (direction) {
         if (direction === "left") { return "right" }
         if (direction === "right") { return "left" }
         if (direction === "up") { return "down" }
         return "up"
     },
 
-    wait(ms) {
+    wait (ms) {
         return new Promise(resolve => {
             setTimeout(() => {
                 resolve()
@@ -35,11 +36,11 @@ const utils = {
         })
     },
 
-    randomFromArray(array) {
+    randomFromArray (array) {
         return array[ Math.floor(Math.random()*array.length) ]
     },
 
-    emitEvent(name, detail) {
+    emitEvent (name, detail) {
         const event = new CustomEvent(name, {
             detail
         });

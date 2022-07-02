@@ -84,9 +84,6 @@ class Battle {
             isPlayerControlled: team === "player"
         }, this)
 
-        //Populate first active pizza
-
-        console.log(this)
         this.activeCombatants[team] = this.activeCombatants[team] || id
     }
 
@@ -147,23 +144,20 @@ class Battle {
                             playerStateWeapon.maxXp = combatant.maxXp;
                             playerStateWeapon.level = combatant.level;
                         }
-                    })
+                    });
 
-                    //Get rid of player used items
                     playerState.items = playerState.items.filter(item => {
                         return !this.usedInstanceIds[item.instanceId]
-                    })
+                    });
 
-                    //Send signal to update
                     utils.emitEvent("PlayerStateUpdated");
                 }
 
                 this.element.remove();
                 this.onComplete();
             }
-        })
+        });
+
         this.turnCycle.init();
-
-
     }
 }

@@ -7,6 +7,7 @@
     background: url(/images/maps/StreetBattle.png);
     background-size: cover;
     image-rendering: pixelated;
+    z-index: 1000;
 }
 
 .Battle_hero, .Battle_enemy {
@@ -32,7 +33,7 @@
 }
 
 .Battle_enemy {
-    top: 35px;
+    top: 75px;
     right: 12px;
 }
 

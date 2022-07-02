@@ -5,7 +5,7 @@ class Team {
         this.combatants = [];
     }
 
-    createElement() {
+    createElement () {
         this.element = document.createElement('div');
         this.element.classList.add('Team');
         this.element.setAttribute('data-team', this.team);
@@ -27,7 +27,7 @@ class Team {
                     <path class="dead-pizza" stroke="#c4bdae" d="M3 2h1M1 3h2M4 3h2M1 4h1M3 4h1M5 4h1M2 5h3" />
                 </svg> 
             `)
-            //Add to parent element
+
             this.element.appendChild(icon);
         })
     }
@@ -37,7 +37,7 @@ class Team {
             const icon = this.element.querySelector(`[data-combatant="${c.id}"]`)
             icon.setAttribute("data-dead", c.hp <= 0 );
             icon.setAttribute("data-active", c.isActive );
-        })
+        });
     }
 
     init (container) {
