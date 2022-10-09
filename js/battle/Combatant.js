@@ -26,7 +26,7 @@ class Combatant {
 
     get faceImg () {
         if (this.team === 'player') {
-            return '/images/characters/people/face/hero.png';
+            return 'images/characters/people/face/hero.png';
         }
         return '';
     }

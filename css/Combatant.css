@@ -2,7 +2,7 @@
     width: 130px;
     height: 45px;
     position: absolute;
-    background: url(/images/ui/hud.png) no-repeat no-repeat;
+    background: url(../images/ui/hud.png) no-repeat no-repeat;
 }
 
 .Battle .Combatant {
@@ -164,7 +164,7 @@
     position: absolute;
     transform: scale(2);
     transition: opacity 0.4s, transform 0.4s;
-    background: url(/images/characters/weapons/weapon-shadow.png) no-repeat no-repeat;
+    background: url(../images/characters/weapons/weapon-shadow.png) no-repeat no-repeat;
     image-rendering: pixelated;
 }
 

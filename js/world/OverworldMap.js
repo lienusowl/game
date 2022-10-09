@@ -105,39 +105,20 @@ class OverworldMap {
 }
 
 window.OverworldMaps = {
-    PC: {
-        lowerSrc: "/images/maps/PC/pc.png",
-        upperSrc: "/images/maps/KitchenUpper.png",
-        gameObjects: {
-            hero: new Person({
-                isPlayerControlled: true,
-                x: utils.withGrid(37),
-                y: utils.withGrid(55),
-            }),
-        },
-        cutsceneSpaces: {
-            [utils.asGridCoord(21,13)]: [
-                {
-                    events: [
-                        { type: "changeMap", map: "Street" }
-                    ]
-                }
-            ]
-        },
-    },
-    DemoRoom: {
-        lowerSrc: "/images/maps/DemoLower.png",
-        upperSrc: "/images/maps/DemoUpper.png",
+    StartRoom: {
+        lowerSrc: "images/maps/DemoLower.png",
+        upperSrc: "images/maps/DemoUpper.png",
         gameObjects: {
             hero: new Person({
                 isPlayerControlled: true,
                 x: utils.withGrid(5),
                 y: utils.withGrid(10),
+                src: "images/characters/people/lienusowl.png",
             }),
             npcA: new Person({
                 x: utils.withGrid(7),
                 y: utils.withGrid(9),
-                src: "/images/characters/people/npc1.png",
+                src: "images/characters/people/npc3.png",
                 behaviorLoop: [
                     { type: 'stand', direction: 'left', time: 800, },
                     { type: 'walk', direction: 'left', },
@@ -145,7 +126,6 @@ window.OverworldMaps = {
                     { type: 'stand', direction: 'right', time: 800, },
                     { type: 'walk', direction: 'right', },
                     { type: 'stand', direction: 'down', time: 300, },
-
                 ],
                 talking: [
                     {
@@ -159,16 +139,16 @@ window.OverworldMaps = {
                 ]
             }),
             npcB: new Person({
-                x: utils.withGrid(3),
-                y: utils.withGrid(7),
-                src: "/images/characters/people/npc2.png",
+                x: utils.withGrid(9),
+                y: utils.withGrid(5),
+                src: "images/characters/people/npc2.png",
                 talking: [
                     {
                         events: [
-                            { type: 'textMessage', text: 'Привет, съеби пожалуйста', faceHero: 'npcA' },
+                            { type: 'textMessage', text: 'эй, не подсматривай пожалуйста', faceHero: 'npcB' },
                             { type: 'textMessage', text: 'мне надо уединиться в этой комнате' },
-                            { who: "npcB", type: 'walk', direction: 'right', },
-                            { who: "npcB", type: 'walk', direction: 'right', },
+                            { type: 'textMessage', text: 'иди отсюда' },
+                            { who: "hero", type: "walk",  direction: "down" },
                         ],
                     },
                 ]
@@ -188,13 +168,18 @@ window.OverworldMaps = {
                         { who: "hero", type: "walk",  direction: "down" },
                         { who: "hero", type: "walk",  direction: "down" },
                         { who: "hero", type: "walk",  direction: "left" },
+                        { who: "hero", type: "walk",  direction: "left" },
+                        { who: "hero", type: "walk",  direction: "left" },
+                        { who: "npcB", type: 'walk', direction: 'left', },
+                        { who: "npcB", type: 'walk', direction: 'up', },
+                        { who: "npcB", type: 'walk', direction: 'up', },
                     ]
                 }
             ],
             [utils.asGridCoord(5,10)]: [
                 {
                     events: [
-                        { type: "changeMap", map: "PC" }
+                        { type: "changeMap", map: "PC_enter" }
                     ]
                 }
             ]
@@ -204,56 +189,150 @@ window.OverworldMaps = {
             [utils.asGridCoord(8,6)] : true,
             [utils.asGridCoord(7,7)] : true,
             [utils.asGridCoord(8,7)] : true,
+
+            // левая стена
+            [utils.asGridCoord(0,3)] : true,
+            [utils.asGridCoord(0,4)] : true,
+            [utils.asGridCoord(0,5)] : true,
+            [utils.asGridCoord(0,6)] : true,
+            [utils.asGridCoord(0,7)] : true,
+            [utils.asGridCoord(0,8)] : true,
+            [utils.asGridCoord(0,9)] : true,
+
+            // верхняя стена
+            [utils.asGridCoord(1,3)] : true,
+            [utils.asGridCoord(2,3)] : true,
+            [utils.asGridCoord(3,3)] : true,
+            [utils.asGridCoord(4,3)] : true,
+            [utils.asGridCoord(5,3)] : true,
+            [utils.asGridCoord(6,4)] : true,
+            [utils.asGridCoord(8,4)] : true,
+            [utils.asGridCoord(9,3)] : true,
+            [utils.asGridCoord(10,3)] : true,
+            [utils.asGridCoord(11,3)] : true,
+
+            // правая стена
+            [utils.asGridCoord(11,3)] : true,
+            [utils.asGridCoord(11,4)] : true,
+            [utils.asGridCoord(11,5)] : true,
+            [utils.asGridCoord(11,6)] : true,
+            [utils.asGridCoord(11,7)] : true,
+            [utils.asGridCoord(11,8)] : true,
+            [utils.asGridCoord(11,9)] : true,
+
+            // нижняя стена
+            [utils.asGridCoord(1,10)] : true,
+            [utils.asGridCoord(2,10)] : true,
+            [utils.asGridCoord(3,10)] : true,
+            [utils.asGridCoord(4,10)] : true,
+            [utils.asGridCoord(5,11)] : true,
+            [utils.asGridCoord(6,10)] : true,
+            [utils.asGridCoord(7,10)] : true,
+            [utils.asGridCoord(8,10)] : true,
+            [utils.asGridCoord(9,10)] : true,
+            [utils.asGridCoord(10,10)] : true,
         }
     },
-    Kitchen: {
-        lowerSrc: "/images/maps/KitchenLower.png",
-        upperSrc: "/images/maps/KitchenUpper.png",
+    PC_enter: {
+        lowerSrc: "images/maps/pc_map/01_enter_down.png",
+        upperSrc: "images/maps/pc_map/01_enter_up.png",
         gameObjects: {
             hero: new Person({
                 isPlayerControlled: true,
-                x: utils.withGrid(5),
-                y: utils.withGrid(5),
+                x: utils.withGrid(3),
+                y: utils.withGrid(13),
+                src: "images/characters/people/lienusowl.png",
             }),
             npcB: new Person({
-                x: utils.withGrid(10),
-                y: utils.withGrid(8),
-                src: "/images/characters/people/npc3.png",
+                x: utils.withGrid(4),
+                y: utils.withGrid(4),
+                src: "images/characters/people/npc3.png",
                 talking: [
                     {
                         events: [
-                            { type: "textMessage", text: "You made it! This video is going to be such a good time!", faceHero:"npcB" },
+                            { type: "textMessage", text: "ты в примитивном центре", faceHero:"npcB" },
+                            { type: "textMessage", text: "беги отсюда", faceHero:"npcB" },
                         ]
                     }
                 ]
             })
         },
         cutsceneSpaces: {
-            [utils.asGridCoord(5,10)]: [
+            [utils.asGridCoord(3,13)]: [
                 {
                     events: [
-                        { type: "changeMap", map: "DemoRoom" }
+                        { type: "changeMap", map: "StartRoom" }
                     ]
                 }
             ]
         },
+        walls: {
+            // up
+            [utils.asGridCoord(0,2)] : true,
+            [utils.asGridCoord(1,2)] : true,
+            [utils.asGridCoord(2,2)] : true,
+            [utils.asGridCoord(3,2)] : true,
+            [utils.asGridCoord(4,2)] : true,
+
+            //left
+            [utils.asGridCoord(0,0)] : true,
+            [utils.asGridCoord(0,1)] : true,
+            [utils.asGridCoord(0,2)] : true,
+            [utils.asGridCoord(0,3)] : true,
+            [utils.asGridCoord(-1,4)] : true,
+            [utils.asGridCoord(0,5)] : true,
+            [utils.asGridCoord(1,6)] : true,
+            [utils.asGridCoord(1,7)] : true,
+            [utils.asGridCoord(1,8)] : true,
+            [utils.asGridCoord(1,9)] : true,
+            [utils.asGridCoord(1,10)] : true,
+            [utils.asGridCoord(1,11)] : true,
+            [utils.asGridCoord(0,12)] : true,
+
+            //right
+            [utils.asGridCoord(6,0)] : true,
+            [utils.asGridCoord(6,1)] : true,
+            [utils.asGridCoord(6,2)] : true,
+            [utils.asGridCoord(6,3)] : true,
+            [utils.asGridCoord(7,3)] : true,
+            [utils.asGridCoord(7,4)] : true,
+            [utils.asGridCoord(7,5)] : true,
+            [utils.asGridCoord(6,5)] : true,
+            [utils.asGridCoord(6,6)] : true,
+            [utils.asGridCoord(5,7)] : true,
+            [utils.asGridCoord(5,8)] : true,
+            [utils.asGridCoord(5,9)] : true,
+            [utils.asGridCoord(6,10)] : true,
+            [utils.asGridCoord(6,11)] : true,
+            [utils.asGridCoord(6,12)] : true,
+
+            //down
+            [utils.asGridCoord(6,13)] : true,
+            [utils.asGridCoord(5,13)] : true,
+            [utils.asGridCoord(4,13)] : true,
+            [utils.asGridCoord(3,14)] : true,
+            [utils.asGridCoord(2,13)] : true,
+            [utils.asGridCoord(1,13)] : true,
+
+        }
     },
 
 
-    FrontDoor: {
-        lowerSrc: "/images/maps/PC/01_front_door.png",
-        upperSrc: "/images/maps/PC/01_front_door_up.png",
+
+    PCRoomold: {
+        lowerSrc: "images/maps/PC/01_front_door.png",
+        upperSrc: "images/maps/PC/01_front_door_up.png",
         gameObjects: {
             hero: new Person({
                 isPlayerControlled: true,
                 x: utils.withGrid(17),
                 y: utils.withGrid(48),
-                src: "/images/characters/people/lienusowl.png",
+                src: "images/characters/people/lienusowl.png",
             }),
             NS: new Person({
                 x: utils.withGrid(17),
                 y: utils.withGrid(43),
-                src: "/images/characters/people/NS.png",
+                src: "images/characters/people/NS.png",
                 talking: [
                     {
                         required: ['TALKED_TO_NS_FIRST_TIME'],
@@ -341,13 +420,105 @@ window.OverworldMaps = {
                     ]
                 }
             ],
-            [utils.asGridCoord(5,10)]: [
+            [utils.asGridCoord(17,49)]: [
                 {
                     events: [
-                        { type: "changeMap", map: "PC" }
+                        { type: "changeMap", map: "StartRoom" }
                     ]
                 }
             ]
         },
+        walls: {
+            [utils.asGridCoord(16,48)] : true,
+            [utils.asGridCoord(15,48)] : true,
+            [utils.asGridCoord(14,48)] : true,
+            [utils.asGridCoord(20,48)] : true,
+            [utils.asGridCoord(19,48)] : true,
+            [utils.asGridCoord(18,48)] : true,
+        }
+    },
+
+    test: {
+        lowerSrc: "images/maps/pc_map/01_enter_down.png",
+        upperSrc: "images/maps/pc_map/01_enter_up.png",
+        gameObjects: {
+            hero: new Person({
+                isPlayerControlled: true,
+                x: utils.withGrid(3),
+                y: utils.withGrid(13),
+                src: "images/characters/people/lienusowl.png",
+            }),
+            npcB: new Person({
+                x: utils.withGrid(4),
+                y: utils.withGrid(4),
+                src: "images/characters/people/npc3.png",
+                talking: [
+                    {
+                        events: [
+                            { type: "textMessage", text: "ты в примитивном центре", faceHero:"npcB" },
+                            { type: "textMessage", text: "беги отсюда", faceHero:"npcB" },
+                        ]
+                    }
+                ]
+            })
+        },
+        cutsceneSpaces: {
+            [utils.asGridCoord(3,13)]: [
+                {
+                    events: [
+                        { type: "changeMap", map: "DemoRoom" }
+                    ]
+                }
+            ]
+        },
+        walls: {
+            // up
+            [utils.asGridCoord(0,2)] : true,
+            [utils.asGridCoord(1,2)] : true,
+            [utils.asGridCoord(2,2)] : true,
+            [utils.asGridCoord(3,2)] : true,
+            [utils.asGridCoord(4,2)] : true,
+
+            //left
+            [utils.asGridCoord(0,0)] : true,
+            [utils.asGridCoord(0,1)] : true,
+            [utils.asGridCoord(0,2)] : true,
+            [utils.asGridCoord(0,3)] : true,
+            [utils.asGridCoord(-1,4)] : true,
+            [utils.asGridCoord(0,5)] : true,
+            [utils.asGridCoord(1,6)] : true,
+            [utils.asGridCoord(1,7)] : true,
+            [utils.asGridCoord(1,8)] : true,
+            [utils.asGridCoord(1,9)] : true,
+            [utils.asGridCoord(1,10)] : true,
+            [utils.asGridCoord(1,11)] : true,
+            [utils.asGridCoord(0,12)] : true,
+
+            //right
+            [utils.asGridCoord(6,0)] : true,
+            [utils.asGridCoord(6,1)] : true,
+            [utils.asGridCoord(6,2)] : true,
+            [utils.asGridCoord(6,3)] : true,
+            [utils.asGridCoord(7,3)] : true,
+            [utils.asGridCoord(7,4)] : true,
+            [utils.asGridCoord(7,5)] : true,
+            [utils.asGridCoord(6,5)] : true,
+            [utils.asGridCoord(6,6)] : true,
+            [utils.asGridCoord(5,7)] : true,
+            [utils.asGridCoord(5,8)] : true,
+            [utils.asGridCoord(5,9)] : true,
+            [utils.asGridCoord(6,10)] : true,
+            [utils.asGridCoord(6,11)] : true,
+            [utils.asGridCoord(6,12)] : true,
+
+            //down
+            [utils.asGridCoord(6,13)] : true,
+            [utils.asGridCoord(5,13)] : true,
+            [utils.asGridCoord(4,13)] : true,
+            [utils.asGridCoord(3,14)] : true,
+            [utils.asGridCoord(2,13)] : true,
+            [utils.asGridCoord(1,13)] : true,
+
+        }
     }
 }

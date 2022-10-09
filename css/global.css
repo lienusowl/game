@@ -37,7 +37,7 @@ body {
     outline: 1px solid #fff;
     margin: 0 auto;
 
-    transform: scale(3) translateY(50%);
+    transform: scale(2.5) translateY(30%);
 }
 
 .game-container canvas {
@@ -52,4 +52,6 @@ body {
     bottom: 0;
     right: auto;
     left: auto;
+    transform: scale(0.5);
+    left: -65px;
 }

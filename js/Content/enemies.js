@@ -1,7 +1,7 @@
 window.Enemies = {
     'PS': {
         name: 'PS',
-        src: '/images/characters/people/PS.png',
+        src: 'images/characters/people/PS.png',
         weapons: {
             'weapon1': {
                 weaponId: 'w001',
@@ -17,7 +17,7 @@ window.Enemies = {
     },
     'NS': {
         name: 'NS',
-        src: '/images/characters/people/NS.png',
+        src: 'images/characters/people/NS.png',
         weapons: {
             'weapon2': {
                 weaponId: 'w002',
@@ -28,7 +28,7 @@ window.Enemies = {
     },
     'IA': {
         name: 'IA',
-        src: '/images/characters/people/IA.png',
+        src: 'images/characters/people/IA.png',
         weapons: {
             'weapon1': {
                 weaponId: 'w001',

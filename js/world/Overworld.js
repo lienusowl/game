@@ -81,7 +81,9 @@ class Overworld {
         this.hud = new Hud();
         this.hud.init(document.querySelector(".game-container"));
 
-        this.startMap(window.OverworldMaps.FrontDoor);
+        // начальная локация
+        this.startMap(window.OverworldMaps.PC_enter);
+        // this.startMap(window.OverworldMaps.test);
 
         this.bindActionInput();
         this.bindHeroPositionCheck();
